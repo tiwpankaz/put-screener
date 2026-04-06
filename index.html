@@ -18,6 +18,27 @@
 html{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
 body{min-height:100vh;padding-bottom:4rem}
 
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:2rem;max-width:440px;width:100%}
+.modal h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:300;margin-bottom:.5rem;color:var(--text)}
+.modal p{font-size:13px;color:var(--text3);line-height:1.7;margin-bottom:1.25rem}
+.modal p a{color:var(--accent);text-decoration:none}
+.modal p a:hover{text-decoration:underline}
+.modal-input{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 12px;border-radius:var(--radius);font-family:'DM Mono',monospace;font-size:13px;outline:none;margin-bottom:.75rem}
+.modal-input:focus{border-color:var(--accent)}
+.modal-input::placeholder{color:var(--text3)}
+.modal-err{font-size:12px;color:var(--red);margin-bottom:.75rem;display:none}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+.modal-btn{padding:8px 18px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.modal-btn.primary{background:rgba(184,240,132,0.1);border:1px solid var(--accent);color:var(--accent)}
+.modal-btn.primary:hover{background:rgba(184,240,132,0.18)}
+.modal-btn.secondary{background:transparent;border:1px solid var(--border2);color:var(--text2)}
+.modal-btn.secondary:hover{border-color:var(--border);color:var(--text)}
+.modal-note{font-size:11px;color:var(--text3);margin-top:.75rem;font-family:'DM Mono',monospace}
+
+/* ── NAV ── */
 nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,15,14,0.93);backdrop-filter:blur(12px);z-index:100}
 .logo{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:500;letter-spacing:-0.02em;color:var(--accent)}
 .logo span{color:var(--text2);font-weight:300}
@@ -32,6 +53,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 #last-updated{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
 
+/* ── HERO ── */
 .hero{padding:2.5rem 2rem 1.5rem;max-width:1400px;margin:0 auto}
 .hero h1{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;line-height:1.2;letter-spacing:-0.03em;margin-bottom:.4rem}
 .hero h1 em{color:var(--accent);font-style:italic}
@@ -39,62 +61,54 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem
 .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
 .tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid var(--border2);font-size:11px;color:var(--text2);font-family:'DM Mono',monospace}
 .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.dot-green{background:var(--accent)}.dot-amber{background:var(--amber)}.dot-red{background:var(--red)}.dot-blue{background:var(--blue)}
+.dot-green{background:var(--accent)}.dot-amber{background:var(--amber)}.dot-blue{background:var(--blue)}.dot-red{background:var(--red)}
 
-.source-tabs{display:flex;gap:0;padding:1.5rem 2rem 0;max-width:1400px;margin:0 auto}
+/* ── SOURCE TABS ── */
+.source-tabs{display:flex;padding:1.5rem 2rem 0;max-width:1400px;margin:0 auto}
 .source-tab{display:flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
 .source-tab:first-child{border-radius:var(--radius-lg) 0 0 0;border-right:none}
 .source-tab:last-child{border-radius:0 var(--radius-lg) 0 0}
 .source-tab.active{background:var(--bg2);color:var(--text);border-bottom-color:var(--bg2)}
 .source-tab:not(.active):hover{color:var(--text);background:rgba(255,255,255,0.02)}
 .tab-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
-.icon-yahoo{background:rgba(240,196,132,0.15);color:var(--amber)}
-.icon-poly{background:rgba(132,184,240,0.15);color:var(--blue)}
+.icon-f{background:rgba(184,240,132,0.15);color:var(--accent)}
+.icon-p{background:rgba(132,184,240,0.15);color:var(--blue)}
 .tab-badge{font-size:10px;padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace}
-.badge-dynamic{background:rgba(184,240,132,0.1);color:var(--accent);border:1px solid rgba(184,240,132,0.2)}
+.badge-free{background:rgba(184,240,132,0.1);color:var(--accent);border:1px solid rgba(184,240,132,0.2)}
 .badge-key{background:rgba(132,184,240,0.1);color:var(--blue);border:1px solid rgba(132,184,240,0.2)}
+.key-indicator{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:'DM Mono',monospace}
+.key-indicator .dot{width:5px;height:5px}
 
+/* ── PANEL ── */
 .panel{background:var(--bg2);border:1px solid var(--border2);border-radius:0 var(--radius-lg) var(--radius-lg) var(--radius-lg);padding:1.5rem 2rem;max-width:1400px;margin:0 auto 1.5rem}
 .panel-desc{font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:1rem;max-width:700px}
+.panel-desc a{color:var(--accent);text-decoration:none}
+.panel-desc a:hover{text-decoration:underline}
 .panel-desc code{font-family:'DM Mono',monospace;font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px}
-.run-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);border:1px solid var(--accent);background:rgba(184,240,132,0.07);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.run-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);border:1px solid var(--accent);background:rgba(184,240,132,0.07);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-right:8px}
 .run-btn:hover{background:rgba(184,240,132,0.14)}
 .run-btn:disabled{opacity:.4;cursor:not-allowed}
-
-.key-row{display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
-.key-row label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace}
-.key-input{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px 10px;border-radius:var(--radius);font-family:'DM Mono',monospace;font-size:12px;width:260px;outline:none}
-.key-input:focus{border-color:var(--accent)}
-.key-input::placeholder{color:var(--text3)}
-.save-btn{padding:6px 12px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:12px;cursor:pointer;transition:all .15s;font-family:'DM Sans',sans-serif}
-.save-btn:hover{border-color:var(--accent);color:var(--accent)}
-.key-status{font-size:11px;font-family:'DM Mono',monospace}
-.key-ok{color:var(--accent)}.key-missing{color:var(--amber)}
+.change-key-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:all .15s}
+.change-key-btn:hover{border-color:var(--border2);color:var(--text2)}
 
 .config-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1rem}
 .config-item label{display:block;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
 .config-select{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px 8px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none}
 .config-select:focus{border-color:var(--accent)}
 
-/* proxy status bar */
-.proxy-bar{display:flex;align-items:center;gap:8px;margin-bottom:1rem;flex-wrap:wrap}
-.proxy-label{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
-.proxy-chip{font-size:10px;padding:2px 8px;border-radius:4px;font-family:'DM Mono',monospace;border:1px solid var(--border)}
-.proxy-chip.active{border-color:var(--accent);color:var(--accent);background:rgba(184,240,132,0.07)}
-.proxy-chip.trying{border-color:var(--amber);color:var(--amber)}
-.proxy-chip.failed{border-color:var(--red);color:var(--red);opacity:.5;text-decoration:line-through}
-
+/* ── PROGRESS ── */
 .progress-wrap{margin-bottom:1.5rem;display:none}
 .progress-wrap.show{display:block}
 .progress-label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:5px;display:flex;justify-content:space-between}
 .progress-track{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
 .progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;width:0%}
 
+/* ── EXPIRY TABS ── */
 .expiry-section{margin-bottom:1.25rem}
 .section-label{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem}
 .expiry-tabs{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .expiry-tab{padding:4px 9px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text3);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap;text-align:center;line-height:1.3}
-.expiry-tab:hover{border-color:var(--border2);color:var(--text2)}
+.expiry-tab:hover,.expiry-tab-all:hover{border-color:var(--border2);color:var(--text2)}
 .expiry-tab.active,.expiry-tab-all.active{border-color:var(--accent);color:var(--accent);background:rgba(184,240,132,0.07)}
 .expiry-tab.weekly{border-style:dashed}
 .expiry-tab.monthly{font-weight:500}
@@ -104,6 +118,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem
 .legend-dash{width:12px;height:0;border-top:1px dashed var(--text3)}
 .legend-solid{width:12px;height:0;border-top:1px solid var(--text3)}
 
+/* ── METRICS ── */
 .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
 .metric-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:.85rem 1rem}
 .metric-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem;font-family:'DM Mono',monospace}
@@ -111,12 +126,14 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem
 .metric-value.green{color:var(--accent)}
 .metric-sub{font-size:10px;color:var(--text3);margin-top:.2rem}
 
+/* ── TABLE CONTROLS ── */
 .tbl-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:1rem}
 .ctrl-label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace}
 .ctrl-select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:5px 8px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none}
 .ctrl-select:focus{border-color:var(--accent)}
 .vdivider{width:1px;height:18px;background:var(--border2)}
 
+/* ── TABLE ── */
 .table-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:960px}
 thead th{text-align:left;padding:9px 10px;font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;transition:color .15s}
@@ -124,7 +141,7 @@ thead th:hover{color:var(--text2)}
 thead th.sorted{color:var(--accent)}
 tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
 tbody tr:hover{background:rgba(255,255,255,0.02)}
-tbody td{padding:10px 10px;vertical-align:middle}
+tbody td{padding:10px;vertical-align:middle}
 .ticker-sym{font-family:'DM Mono',monospace;font-weight:500;font-size:14px}
 .rank{font-size:10px;color:var(--accent);margin-left:5px;font-family:'DM Mono',monospace}
 .mono{font-family:'DM Mono',monospace;font-size:13px}
@@ -144,7 +161,7 @@ tbody td{padding:10px 10px;vertical-align:middle}
 .exp-m{color:var(--accent);font-size:9px;margin-left:2px}
 .msg-row td{text-align:center;padding:2.5rem;color:var(--text3);font-family:'DM Mono',monospace;font-size:13px;line-height:2.4}
 .src-chip{display:inline-block;font-size:9px;padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;margin-left:4px;vertical-align:middle}
-.chip-y{background:rgba(240,196,132,0.12);color:var(--amber)}
+.chip-f{background:rgba(184,240,132,0.12);color:var(--accent)}
 .chip-p{background:rgba(132,184,240,0.12);color:var(--blue)}
 
 .disclaimer{padding:1rem 2rem 0;max-width:1400px;margin:0 auto}
@@ -155,16 +172,58 @@ tbody td{padding:10px 10px;vertical-align:middle}
   nav,.hero,.source-tabs,.panel,.disclaimer{padding-left:1rem;padding-right:1rem}
   .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
   .hero h1{font-size:1.8rem}
-  .key-input{width:100%}
 }
 </style>
 </head>
 <body>
 
+<!-- ── KEY MODALS ── -->
+
+<!-- Finnhub key modal -->
+<div class="modal-overlay" id="finnhubModal">
+  <div class="modal">
+    <h2>Finnhub API key</h2>
+    <p>
+      Finnhub is free, reliable, and supports browser requests directly — no proxy needed.<br><br>
+      1. Go to <a href="https://finnhub.io/register" target="_blank">finnhub.io/register</a><br>
+      2. Sign up free (no credit card)<br>
+      3. Copy your API key from the dashboard<br>
+      4. Paste it below
+    </p>
+    <input class="modal-input" id="finnhubKeyInput" type="password" placeholder="Paste your Finnhub API key..." autocomplete="off">
+    <div class="modal-err" id="finnhubKeyErr">Key cannot be empty.</div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('finnhubModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="saveFinnhubKey()">Save &amp; Run</button>
+    </div>
+    <div class="modal-note">Key is saved in your browser only — never sent anywhere except Finnhub.</div>
+  </div>
+</div>
+
+<!-- Polygon key modal -->
+<div class="modal-overlay" id="polyModal">
+  <div class="modal">
+    <h2>Polygon.io API key</h2>
+    <p>
+      Polygon free tier gives access to <code>/v2/aggs</code> (previous day OHLCV) — exactly what this screener uses.<br><br>
+      1. Go to <a href="https://polygon.io/dashboard/api-keys" target="_blank">polygon.io/dashboard/api-keys</a><br>
+      2. Copy your API key<br>
+      3. Paste it below
+    </p>
+    <input class="modal-input" id="polyKeyInput" type="password" placeholder="Paste your Polygon API key..." autocomplete="off">
+    <div class="modal-err" id="polyKeyErr">Key cannot be empty.</div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('polyModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="savePolyKey()">Save &amp; Run</button>
+    </div>
+    <div class="modal-note">Key is saved in your browser only — never hardcoded in any file.</div>
+  </div>
+</div>
+
 <nav>
   <div class="logo">Put<span>Flow</span></div>
   <div class="nav-right">
-    <span id="last-updated">Choose a source tab below</span>
+    <span id="last-updated">Choose a source below</span>
     <div class="status-dot" id="sdot"></div>
     <button class="refresh-btn" id="refreshBtn" onclick="runActive()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
@@ -175,23 +234,23 @@ tbody td{padding:10px 10px;vertical-align:middle}
 
 <div class="hero">
   <h1>Cash-secured put<br><em>screener</em></h1>
-  <p>Two dynamic data sources. Yahoo Finance screens the entire market server-side with no API key, using multiple proxy fallbacks. Polygon uses your free key with a 120-stock high-IV universe.</p>
+  <p>Two live data sources. Finnhub screens the market dynamically with direct API calls — no proxy needed. Polygon uses your free key with a 120-stock high-IV universe. Both ask for your key at runtime.</p>
   <div class="tag-row">
-    <div class="tag"><span class="dot dot-amber"></span>Yahoo — dynamic, no key, proxy fallbacks</div>
+    <div class="tag"><span class="dot dot-green"></span>Finnhub — dynamic, direct API, no proxy</div>
     <div class="tag"><span class="dot dot-blue"></span>Polygon — 120-stock universe, free key</div>
-    <div class="tag"><span class="dot dot-green"></span>All expiries · 90 days</div>
-    <div class="tag"><span class="dot dot-red"></span>Auto-filters sell signals</div>
+    <div class="tag"><span class="dot dot-amber"></span>All expiries · 90 days</div>
+    <div class="tag"><span class="dot dot-red"></span>Keys saved in browser only</div>
   </div>
 </div>
 
 <div class="source-tabs">
-  <button class="source-tab active" id="tab-yahoo" onclick="switchSource('yahoo')">
-    <div class="tab-icon icon-yahoo">Y</div>
-    Yahoo Finance
-    <span class="tab-badge badge-dynamic">No key needed</span>
+  <button class="source-tab active" id="tab-finn" onclick="switchSource('finn')">
+    <div class="tab-icon icon-f">F</div>
+    Finnhub
+    <span class="tab-badge badge-free">Dynamic</span>
   </button>
   <button class="source-tab" id="tab-poly" onclick="switchSource('poly')">
-    <div class="tab-icon icon-poly">P</div>
+    <div class="tab-icon icon-p">P</div>
     Polygon.io
     <span class="tab-badge badge-key">Free key</span>
   </button>
@@ -199,26 +258,17 @@ tbody td{padding:10px 10px;vertical-align:middle}
 
 <div class="panel">
 
-  <!-- YAHOO PANEL -->
-  <div id="panel-yahoo">
+  <!-- FINNHUB PANEL -->
+  <div id="panel-finn">
     <p class="panel-desc">
-      Queries Yahoo Finance's screener API — <strong>no hardcoded tickers</strong>, fully server-side filtered.
-      Uses <strong>3 proxy services with automatic fallback</strong> so if one is down it tries the next.
-      Fetches quotes in batches after screening. No API key required.
+      Uses <a href="https://finnhub.io" target="_blank">Finnhub.io</a>'s free API — supports direct browser requests so no CORS proxy is needed.
+      Screens a broad universe of US stocks, filters server-side by price and volume, estimates IV from daily price action.
+      Free plan: 60 API calls/minute — plenty for this screener.
     </p>
-
-    <!-- Proxy status -->
-    <div class="proxy-bar" id="proxyBar">
-      <span class="proxy-label">Proxies:</span>
-      <span class="proxy-chip" id="pc0">allorigins</span>
-      <span class="proxy-chip" id="pc1">corsproxy.io</span>
-      <span class="proxy-chip" id="pc2">thingproxy</span>
-    </div>
-
     <div class="config-grid">
       <div class="config-item">
         <label>Max price</label>
-        <select class="config-select" id="y-maxPrice">
+        <select class="config-select" id="f-maxPrice">
           <option value="30" selected>Under $30</option>
           <option value="20">Under $20</option>
           <option value="10">Under $10</option>
@@ -226,42 +276,42 @@ tbody td{padding:10px 10px;vertical-align:middle}
         </select>
       </div>
       <div class="config-item">
-        <label>Min avg volume</label>
-        <select class="config-select" id="y-minVol">
+        <label>Min volume</label>
+        <select class="config-select" id="f-minVol">
           <option value="500000" selected>500K+</option>
           <option value="1000000">1M+</option>
-          <option value="2000000">2M+</option>
           <option value="200000">200K+</option>
         </select>
       </div>
       <div class="config-item">
-        <label>Results to screen</label>
-        <select class="config-select" id="y-count">
-          <option value="100" selected>100 stocks</option>
-          <option value="50">50 stocks</option>
-          <option value="200">200 stocks</option>
+        <label>Min est. IV</label>
+        <select class="config-select" id="f-minIV">
+          <option value="40" selected>40%+</option>
+          <option value="60">60%+</option>
+          <option value="80">80%+</option>
         </select>
       </div>
     </div>
-    <button class="run-btn" id="yahooRunBtn" onclick="runYahoo()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      Run Yahoo Screener
-    </button>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <button class="run-btn" id="finnRunBtn" onclick="startFinn()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Run Finnhub Screener
+      </button>
+      <span id="finnKeyIndicator" class="key-indicator" style="display:none">
+        <span class="dot" id="finnKeyDot"></span>
+        <span id="finnKeyLabel"></span>
+        <button class="change-key-btn" onclick="openModal('finnhubModal')" style="margin-left:4px;padding:3px 8px;font-size:11px">Change key</button>
+      </span>
+    </div>
   </div>
 
   <!-- POLYGON PANEL -->
   <div id="panel-poly" style="display:none">
     <p class="panel-desc">
-      Seeds from a <strong>120-stock high-IV universe</strong> spanning crypto, biotech, EV, energy, mining, and fintech.
-      Fetches live prices each run via <code>/v2/aggs</code> (free tier) and auto-filters dynamically.
-      Your API key is saved in your browser — never in the file.
+      Seeds from a <strong>120-stock high-IV universe</strong> across crypto, biotech, EV, energy, mining, and fintech.
+      Each run fetches live data via <code>/v2/aggs</code> (free tier endpoint) and filters dynamically.
+      Your key is stored in your browser — never in any file.
     </p>
-    <div class="key-row">
-      <label>Polygon API Key</label>
-      <input class="key-input" id="polyKey" type="password" placeholder="x6ybswoCgPI1TFvakHb3KvBCO8ztcil1" oninput="checkPolyKey()">
-      <button class="save-btn" onclick="savePolyKey()">Save locally</button>
-      <span class="key-status" id="polyKeyStatus">No key entered</span>
-    </div>
     <div class="config-grid">
       <div class="config-item">
         <label>Max price</label>
@@ -289,10 +339,17 @@ tbody td{padding:10px 10px;vertical-align:middle}
         </select>
       </div>
     </div>
-    <button class="run-btn" id="polyRunBtn" onclick="runPoly()">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      Run Polygon Screener
-    </button>
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+      <button class="run-btn" id="polyRunBtn" onclick="startPoly()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Run Polygon Screener
+      </button>
+      <span id="polyKeyIndicator" class="key-indicator" style="display:none">
+        <span class="dot" id="polyKeyDot"></span>
+        <span id="polyKeyLabel"></span>
+        <button class="change-key-btn" onclick="openModal('polyModal')" style="margin-left:4px;padding:3px 8px;font-size:11px">Change key</button>
+      </span>
+    </div>
   </div>
 
   <!-- SHARED OUTPUT -->
@@ -380,14 +437,14 @@ tbody td{padding:10px 10px;vertical-align:middle}
 
 <div class="disclaimer">
   <div class="disc-inner">
-    <strong>Yahoo tab:</strong> Server-side screener query via Yahoo Finance v1 API. Uses 3 CORS proxies with automatic fallback (allorigins → corsproxy.io → thingproxy). Quotes fetched in batches. Real-time during market hours. &nbsp;|&nbsp;
-    <strong>Polygon tab:</strong> 120-stock high-IV seed universe auto-filtered live via <code style="font-family:'DM Mono',monospace;font-size:11px">/v2/aggs</code> (free tier). 15-min delayed. Key saved in browser only. &nbsp;|&nbsp;
-    IV estimated from day range + return. Premium via Black-Scholes at 8% OTM. <strong>Not financial advice.</strong>
+    <strong>Finnhub tab:</strong> Uses Finnhub's stock symbols API + quote endpoint directly in the browser (CORS allowed). Free plan: 60 calls/min. Screens ~200 high-volume US stocks per run. &nbsp;|&nbsp;
+    <strong>Polygon tab:</strong> 120-stock high-IV seed universe filtered live via <code style="font-family:'DM Mono',monospace;font-size:11px">/v2/aggs</code> (free tier). 15-min delayed. &nbsp;|&nbsp;
+    All API keys stored in browser localStorage only. IV estimated from day range + return. Premium via Black-Scholes at 8% OTM. <strong>Not financial advice.</strong>
   </div>
 </div>
 
 <script>
-// ── 120-stock Polygon seed universe ──────────────────
+// ── 120-stock Polygon seed universe ───────────────────
 const POLY_UNIVERSE=[
   "SOFI","MARA","RIOT","CLSK","CIFR","BITF","HUT","MIGI",
   "SPWR","NOVA","PLUG","FCEL","BLNK","CHPT","EVGO","WKHS",
@@ -406,92 +463,108 @@ const POLY_UNIVERSE=[
   "SUNW","FLNC","STEM","AMPS","ARRY","SPRU","GREE","BTBT"
 ];
 
-// ── CORS proxies with fallback ────────────────────────
-// Each proxy wraps a URL differently — we try them in order
-const PROXIES = [
-  {
-    name: "allorigins",
-    wrap: url => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-    parse: async r => r.json()
-  },
-  {
-    name: "corsproxy.io",
-    wrap: url => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-    parse: async r => r.json()
-  },
-  {
-    name: "thingproxy",
-    wrap: url => `https://thingproxy.freeboard.io/fetch/${url}`,
-    parse: async r => r.json()
-  }
-];
-
-let activeProxy = 0; // index of currently working proxy
-
-// Try proxies in order, remember which one works
-async function fetchViaProxy(url, options={}) {
-  // Start from last known working proxy
-  for (let attempt = 0; attempt < PROXIES.length; attempt++) {
-    const idx = (activeProxy + attempt) % PROXIES.length;
-    const proxy = PROXIES[idx];
-    updateProxyChip(idx, "trying");
-    try {
-      const proxyUrl = proxy.wrap(url);
-      const r = await fetch(proxyUrl, { ...options, signal: AbortSignal.timeout(8000) });
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      const data = await proxy.parse(r);
-      // Success — remember this proxy
-      activeProxy = idx;
-      updateProxyChip(idx, "active");
-      // Reset failed chips for others
-      PROXIES.forEach((_, i) => { if (i !== idx) updateProxyChip(i, ""); });
-      return data;
-    } catch(e) {
-      updateProxyChip(idx, "failed");
-      console.warn(`Proxy ${proxy.name} failed:`, e.message);
-    }
-  }
-  throw new Error("All 3 CORS proxies failed. This can happen outside market hours or due to rate limiting. Please try again in a minute.");
-}
-
-function updateProxyChip(idx, state) {
-  const el = document.getElementById("pc" + idx);
-  if (!el) return;
-  el.className = "proxy-chip" + (state ? " " + state : "");
-}
-
 // ── State ─────────────────────────────────────────────
-let allRows = [], expiryDates = [], selectedExp = "all";
-let sortKey = "yield", sortDir = -1;
-let activeSource = "yahoo", isRunning = false;
+let allRows=[], expiryDates=[], selectedExp="all";
+let sortKey="yield", sortDir=-1;
+let activeSource="finn", isRunning=false;
+let pendingAction=null; // which run to trigger after modal save
 
-const sleep = ms => new Promise(r => setTimeout(r, ms));
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
-// ── Polygon key ───────────────────────────────────────
-function savePolyKey(){ const k=document.getElementById("polyKey").value.trim(); if(k){ localStorage.setItem("pf_pk",k); checkPolyKey(); } }
-function loadPolyKey(){ document.getElementById("polyKey").value=localStorage.getItem("pf_pk")||""; checkPolyKey(); }
-function checkPolyKey(){ const k=document.getElementById("polyKey").value.trim(); const el=document.getElementById("polyKeyStatus"); el.className="key-status "+(k?"key-ok":"key-missing"); el.textContent=k?"✓ Key ready":"No key entered"; }
-function getPolyKey(){ return document.getElementById("polyKey").value.trim()||localStorage.getItem("pf_pk")||""; }
+// ── Modal management ──────────────────────────────────
+function openModal(id, action=null){
+  pendingAction=action;
+  document.getElementById(id).classList.add("show");
+  // Pre-fill if key exists
+  if(id==="finnhubModal"){
+    const k=localStorage.getItem("pf_fh")||"";
+    document.getElementById("finnhubKeyInput").value=k;
+    document.getElementById("finnhubKeyErr").style.display="none";
+  }
+  if(id==="polyModal"){
+    const k=localStorage.getItem("pf_pk")||"";
+    document.getElementById("polyKeyInput").value=k;
+    document.getElementById("polyKeyErr").style.display="none";
+  }
+}
+function closeModal(id){ document.getElementById(id).classList.remove("show"); }
 
+// Close modal on overlay click
+document.querySelectorAll(".modal-overlay").forEach(el=>{
+  el.addEventListener("click",e=>{ if(e.target===el) el.classList.remove("show"); });
+});
+
+// ── Key save handlers ─────────────────────────────────
+function saveFinnhubKey(){
+  const k=document.getElementById("finnhubKeyInput").value.trim();
+  if(!k){ document.getElementById("finnhubKeyErr").style.display="block"; return; }
+  localStorage.setItem("pf_fh",k);
+  closeModal("finnhubModal");
+  updateKeyIndicator("finn");
+  runFinn(); // run immediately after saving
+}
+
+function savePolyKey(){
+  const k=document.getElementById("polyKeyInput").value.trim();
+  if(!k){ document.getElementById("polyKeyErr").style.display="block"; return; }
+  localStorage.setItem("pf_pk",k);
+  closeModal("polyModal");
+  updateKeyIndicator("poly");
+  runPoly(); // run immediately after saving
+}
+
+function getKey(src){ return localStorage.getItem(src==="finn"?"pf_fh":"pf_pk")||""; }
+
+function updateKeyIndicator(src){
+  const k=getKey(src);
+  if(src==="finn"){
+    const el=document.getElementById("finnKeyIndicator");
+    if(!k){ el.style.display="none"; return; }
+    el.style.display="inline-flex";
+    document.getElementById("finnKeyDot").style.background="var(--accent)";
+    document.getElementById("finnKeyLabel").textContent="Key saved ✓";
+    document.getElementById("finnKeyLabel").style.color="var(--accent)";
+  } else {
+    const el=document.getElementById("polyKeyIndicator");
+    if(!k){ el.style.display="none"; return; }
+    el.style.display="inline-flex";
+    document.getElementById("polyKeyDot").style.background="var(--accent)";
+    document.getElementById("polyKeyLabel").textContent="Key saved ✓";
+    document.getElementById("polyKeyLabel").style.color="var(--accent)";
+  }
+}
+
+// ── Start functions (check key first) ─────────────────
+function startFinn(){
+  const k=getKey("finn");
+  if(!k){ openModal("finnhubModal"); return; }
+  runFinn();
+}
+function startPoly(){
+  const k=getKey("poly");
+  if(!k){ openModal("polyModal"); return; }
+  runPoly();
+}
+
+// ── Source switching ──────────────────────────────────
 function switchSource(src){
   activeSource=src;
-  document.getElementById("tab-yahoo").classList.toggle("active",src==="yahoo");
+  document.getElementById("tab-finn").classList.toggle("active",src==="finn");
   document.getElementById("tab-poly").classList.toggle("active",src==="poly");
-  document.getElementById("panel-yahoo").style.display=src==="yahoo"?"block":"none";
+  document.getElementById("panel-finn").style.display=src==="finn"?"block":"none";
   document.getElementById("panel-poly").style.display=src==="poly"?"block":"none";
   resetOutput();
 }
-function runActive(){ activeSource==="yahoo"?runYahoo():runPoly(); }
+function runActive(){ activeSource==="finn"?startFinn():startPoly(); }
 
-// ── Dates ─────────────────────────────────────────────
+// ── Date helpers ──────────────────────────────────────
 function toDateStr(d){ return d.toISOString().split("T")[0]; }
 function addDays(d,n){ const r=new Date(d); r.setDate(r.getDate()+n); return r; }
 function calcDTE(s){ const t=new Date(); t.setHours(0,0,0,0); return Math.round((new Date(s+"T12:00:00")-t)/86400000); }
 function isMonthly(s){ const d=new Date(s+"T12:00:00"); if(d.getDay()!==5) return false; const day=d.getDate(); return day>=15&&day<=21; }
 function fmtDate(s){ return new Date(s+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}); }
-
 function buildExpiryCalendar(){
-  const dates=[]; const today=new Date(); today.setHours(0,0,0,0);
+  const dates=[],today=new Date(); today.setHours(0,0,0,0);
   let d=new Date(today); while(d.getDay()!==5) d=addDays(d,1);
   while(true){ const dte=Math.round((d-today)/86400000); if(dte>90) break; if(dte>0){ const s=toDateStr(d); dates.push({date:s,dte,isMonthly:isMonthly(s),display:fmtDate(s)}); } d=addDays(d,7); }
   return dates;
@@ -508,8 +581,9 @@ function showProgress(){ document.getElementById("progressWrap").classList.add("
 function hideProgress(){ setTimeout(()=>document.getElementById("progressWrap").classList.remove("show"),1500); }
 function showMsg(html){ document.getElementById("msgArea").innerHTML=html; document.getElementById("msgArea").style.display="block"; document.getElementById("resultsArea").style.display="none"; }
 function showResults(){ document.getElementById("resultsArea").style.display="block"; document.getElementById("msgArea").style.display="none"; }
-function resetOutput(){ document.getElementById("progressWrap").classList.remove("show"); document.getElementById("msgArea").style.display="none"; document.getElementById("resultsArea").style.display="none"; allRows=[]; setDot(""); document.getElementById("last-updated").textContent="Choose a source tab below"; }
+function resetOutput(){ document.getElementById("progressWrap").classList.remove("show"); document.getElementById("msgArea").style.display="none"; document.getElementById("resultsArea").style.display="none"; allRows=[]; setDot(""); document.getElementById("last-updated").textContent="Choose a source below"; }
 function setDot(s){ document.getElementById("sdot").className="status-dot"+(s?" "+s:""); }
+function setBtns(disabled){ ["finnRunBtn","polyRunBtn","refreshBtn"].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=disabled; }); }
 
 function buildExpiryTabs(dates){
   expiryDates=dates;
@@ -518,146 +592,106 @@ function buildExpiryTabs(dates){
   dates.forEach(exp=>{ const b=document.createElement("button"); b.className="expiry-tab "+(exp.isMonthly?"monthly":"weekly"); b.innerHTML=`${exp.display}<br><span style="font-size:9px;opacity:.5">${exp.dte}d</span>`; b.onclick=()=>setExpiry(exp.date,b); c.appendChild(b); });
 }
 function setExpiry(date,btn){ selectedExp=date; document.querySelectorAll(".expiry-tab,.expiry-tab-all").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); render(); }
-
-function buildRows(stocks,dates,src){
-  const rows=[];
-  for(const s of stocks) for(const exp of dates){ const opt=calcPremium(s.price,s.iv,exp.dte); if(!opt||opt.yield<5) continue; rows.push({...s,...opt,expDate:exp.date,dte:exp.dte,expDisplay:exp.display,isMonthly:exp.isMonthly,source:src}); }
-  return rows;
-}
+function buildRows(stocks,dates,src){ const rows=[]; for(const s of stocks) for(const exp of dates){ const opt=calcPremium(s.price,s.iv,exp.dte); if(!opt||opt.yield<5) continue; rows.push({...s,...opt,expDate:exp.date,dte:exp.dte,expDisplay:exp.display,isMonthly:exp.isMonthly,source:src}); } return rows; }
 
 // ═══════════════════════════════════════════════════════
-//  YAHOO FINANCE — screener with 3-proxy fallback chain
+//  FINNHUB — direct browser API, no proxy needed
+//  Free plan: 60 calls/min
+//  Strategy: fetch US stock symbols, batch quote calls
 // ═══════════════════════════════════════════════════════
-async function runYahoo(){
+async function runFinn(){
   if(isRunning) return;
-  isRunning=true;
-  document.getElementById("yahooRunBtn").disabled=true;
-  document.getElementById("refreshBtn").disabled=true;
+  const key=getKey("finn");
+  if(!key){ openModal("finnhubModal"); return; }
+
+  isRunning=true; setBtns(true);
   setDot("loading"); showProgress();
-  setProgress(5,"Connecting to Yahoo Finance screener...");
+  setProgress(5,"Fetching US stock symbols from Finnhub...");
   document.getElementById("last-updated").textContent="Fetching...";
 
-  const maxPrice=+document.getElementById("y-maxPrice").value;
-  const minVol=+document.getElementById("y-minVol").value;
-  const count=+document.getElementById("y-count").value;
+  const maxPrice=+document.getElementById("f-maxPrice").value;
+  const minVol=+document.getElementById("f-minVol").value;
+  const minIV=+document.getElementById("f-minIV").value;
 
   try{
-    // ── Step 1: Yahoo Finance screener (server-side filtered) ──
-    setProgress(10,"Sending screener query (trying proxies)...");
+    // Step 1: Get all US stock symbols (1 call)
+    const symRes=await fetch(`https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${key}`);
+    if(symRes.status===401){ localStorage.removeItem("pf_fh"); updateKeyIndicator("finn"); throw new Error("Invalid Finnhub API key. Click 'Change key' to enter a new one."); }
+    if(!symRes.ok) throw new Error(`Finnhub symbols API returned ${symRes.status}`);
+    const symbols=await symRes.json();
 
-    const screenerBody=JSON.stringify({
-      offset:0, size:count, sortField:"percentchange", sortType:"DESC",
-      quoteType:"EQUITY", topOperator:"AND",
-      query:{
-        operator:"AND",
-        operands:[
-          {operator:"lt",operands:["regularmarketprice", maxPrice]},
-          {operator:"gt",operands:["regularmarketprice", 0.5]},
-          {operator:"gt",operands:["avgdailyvol3m", minVol]},
-          {operator:"eq",operands:["region","us"]}
-        ]
-      },
-      userId:"", userIdType:"guid"
-    });
+    // Filter to common stocks only (type=Common Stock), clean symbols
+    const tickers=symbols
+      .filter(s=>s.type==="Common Stock"&&/^[A-Z]{1,5}$/.test(s.symbol))
+      .map(s=>s.symbol);
 
-    const screenerUrl="https://query1.finance.yahoo.com/v1/finance/screener?lang=en-US&region=US&formatted=false";
+    setProgress(20,`Got ${tickers.length} US common stocks. Fetching quotes in batches...`);
 
-    let screenerData;
-    try {
-      screenerData = await fetchViaProxy(screenerUrl, {
-        method:"POST",
-        headers:{"Content-Type":"application/json","Accept":"application/json"}
-      });
+    // Step 2: Batch quote fetches — take a sample of 200 random tickers
+    // Finnhub has 60 calls/min on free tier — we fetch 200 tickers serially with small delay
+    const sample=tickers.sort(()=>Math.random()-0.5).slice(0,200);
+    const stocks=[];
 
-      // allorigins returns {contents: "..."} when wrapping POST — handle both
-      if (typeof screenerData === "string") screenerData = JSON.parse(screenerData);
-      if (screenerData.contents) screenerData = JSON.parse(screenerData.contents);
+    for(let i=0;i<sample.length;i++){
+      const ticker=sample[i];
+      try{
+        const r=await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${key}`,{signal:AbortSignal.timeout(4000)});
+        if(!r.ok) continue;
+        const q=await r.json();
+        const price=q.c; // current price
+        const prev=q.pc; // prev close
+        const high=q.h;
+        const low=q.l;
+        const vol=q.v||0;
+        if(!price||price<0.5||price>maxPrice) continue;
+        if(vol<minVol) continue;
+        const chg=prev>0?+((price-prev)/prev*100).toFixed(2):0;
+        if(chg<-20) continue; // sell signal filter
+        const iv=estIV(high,low,price,prev);
+        if(iv<minIV) continue;
+        stocks.push({ticker,price,change:chg,volume:vol,iv});
+        if(stocks.length>=50) break; // stop once we have 50 good ones — saves API calls
+      } catch(e){ /* skip failed */ }
 
-    } catch(proxyErr) {
-      // ── Fallback: use Yahoo v7 quote for a known list of volatile stocks ──
-      // This is a GET request — much easier to proxy
-      setProgress(20,"Screener blocked. Falling back to direct quote fetch...");
-      const fallbackTickers = POLY_UNIVERSE.slice(0, 50).join(",");
-      const quoteUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${encodeURIComponent(fallbackTickers)}&fields=regularMarketPrice,regularMarketChangePercent,regularMarketVolume,regularMarketDayHigh,regularMarketDayLow,regularMarketPreviousClose,averageDailyVolume3Month,symbol`;
-      const quoteData = await fetchViaProxy(quoteUrl);
-      const raw = quoteData.contents ? JSON.parse(quoteData.contents) : quoteData;
-      const quotes = (raw.quoteResponse && raw.quoteResponse.result) || [];
-      if (!quotes.length) throw new Error("Both screener and quote fallback failed. Try again in 1–2 minutes.");
-      return finishYahoo(quotes, maxPrice, minVol);
+      const pct=20+Math.round((i/sample.length)*70);
+      setProgress(pct,`Scanning... ${i+1}/${sample.length}`,`${stocks.length} qualified`);
+
+      // Rate limit: ~55 calls/min safe = ~1.1s apart
+      // But we stop early at 50 stocks so total calls = symbols(1) + up to 200 quotes
+      await sleep(1100);
     }
 
-    const quotes=(screenerData.finance&&screenerData.finance.result&&screenerData.finance.result[0]&&screenerData.finance.result[0].quotes)||[];
-    if(!quotes.length) throw new Error("Screener returned no results. Try again shortly.");
+    if(!stocks.length) throw new Error("No stocks matched the filters. Try lowering min volume or min IV.");
 
-    setProgress(60,`Screener returned ${quotes.length} stocks. Filtering...`);
-    return finishYahoo(quotes, maxPrice, minVol);
+    setProgress(92,`${stocks.length} stocks found. Building expiry matrix...`);
+    const dates=buildExpiryCalendar();
+    buildExpiryTabs(dates);
+    allRows=buildRows(stocks,dates,"finn");
+
+    setProgress(100,`Done — ${stocks.length} stocks × ${dates.length} expiries`);
+    hideProgress(); showResults(); setDot("ok");
+    const now=new Date();
+    document.getElementById("last-updated").textContent=`Finnhub · ${now.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · Real-time · ${stocks.length} stocks`;
+    render();
 
   } catch(err){
     setDot("error"); hideProgress();
-    showMsg(`<span style="color:var(--red)">⚠ ${err.message}</span><br>
-      <span style="font-size:12px;color:var(--text3)">
-        All CORS proxies failed or were rate-limited.<br>
-        Wait 1–2 minutes and try again, or switch to the <strong style="color:var(--text2)">Polygon tab</strong> which uses a direct API key.
-      </span>`);
+    showMsg(`<span style="color:var(--red)">⚠ ${err.message}</span>`);
     document.getElementById("last-updated").textContent="Error";
-    isRunning=false;
-    document.getElementById("yahooRunBtn").disabled=false;
-    document.getElementById("refreshBtn").disabled=false;
-  }
-}
-
-function finishYahoo(quotes, maxPrice, minVol){
-  const stocks=[];
-  quotes.forEach(q=>{
-    const price=q.regularMarketPrice||q.price;
-    if(!price||price<0.5||price>maxPrice) return;
-    const vol=q.averageDailyVolume3Month||q.regularMarketVolume||0;
-    if(vol<minVol) return;
-    if(!/^[A-Z]{1,5}$/.test(q.symbol||"")) return;
-    const chg=+(q.regularMarketChangePercent||0).toFixed(2);
-    if(chg<-20) return;
-    const h=q.regularMarketDayHigh||price*1.02;
-    const l=q.regularMarketDayLow||price*0.98;
-    const prev=q.regularMarketPreviousClose||price;
-    const iv=estIV(h,l,price,prev);
-    if(iv<35) return;
-    stocks.push({ticker:q.symbol,price,change:chg,volume:vol,iv});
-  });
-
-  if(!stocks.length){
-    setDot("error"); hideProgress();
-    showMsg(`<span style="color:var(--amber)">No stocks passed the filters (price, volume, IV).<br>Try lowering min volume or widening price range.</span>`);
-    isRunning=false;
-    document.getElementById("yahooRunBtn").disabled=false;
-    document.getElementById("refreshBtn").disabled=false;
-    return;
   }
 
-  setProgress(85,`${stocks.length} stocks qualified. Building expiry matrix...`);
-  const dates=buildExpiryCalendar();
-  buildExpiryTabs(dates);
-  allRows=buildRows(stocks,dates,"yahoo");
-
-  setProgress(100,`Done — ${stocks.length} stocks × ${dates.length} expiries`);
-  hideProgress(); showResults(); setDot("ok");
-  const now=new Date();
-  document.getElementById("last-updated").textContent=`Yahoo · ${now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})} · ${stocks.length} stocks screened`;
-  render();
-  isRunning=false;
-  document.getElementById("yahooRunBtn").disabled=false;
-  document.getElementById("refreshBtn").disabled=false;
+  isRunning=false; setBtns(false);
 }
 
 // ═══════════════════════════════════════════════════════
-//  POLYGON — 120-stock seed universe, live-filtered
+//  POLYGON — 120-stock seed universe, auto-filtered live
 // ═══════════════════════════════════════════════════════
 async function runPoly(){
   if(isRunning) return;
-  const key=getPolyKey();
-  if(!key){ showMsg(`<span style="color:var(--amber)">Enter your Polygon API key first.</span>`); return; }
-  isRunning=true;
-  document.getElementById("polyRunBtn").disabled=true;
-  document.getElementById("refreshBtn").disabled=true;
+  const key=getKey("poly");
+  if(!key){ openModal("polyModal"); return; }
+
+  isRunning=true; setBtns(true);
   setDot("loading"); showProgress();
   setProgress(3,"Screening 120-stock universe via Polygon...");
   document.getElementById("last-updated").textContent="Fetching...";
@@ -674,6 +708,7 @@ async function runPoly(){
       const batch=universe.slice(i,i+batchSize);
       const results=await Promise.allSettled(batch.map(async ticker=>{
         const r=await fetch(`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?adjusted=true&apiKey=${key}`,{signal:AbortSignal.timeout(6000)});
+        if(r.status===401){ throw new Error("401"); }
         if(!r.ok) return null;
         const d=await r.json();
         if(!d.results||!d.results.length) return null;
@@ -687,9 +722,13 @@ async function runPoly(){
         if(iv<minIV) return null;
         return{ticker,price,change:chg,volume:bar.v||0,iv};
       }));
+
+      // Check for 401
+      const unauthorized=results.find(r=>r.status==="rejected"&&r.reason?.message==="401");
+      if(unauthorized){ localStorage.removeItem("pf_pk"); updateKeyIndicator("poly"); throw new Error("Invalid Polygon API key. Click 'Change key' to enter a new one."); }
+
       results.forEach(r=>{ if(r.status==="fulfilled"&&r.value) stocks.push(r.value); });
-      setProgress(5+Math.round(((i+batchSize)/universe.length)*82),
-        `Screening... ${Math.min(i+batchSize,universe.length)}/${universe.length}`,`${stocks.length} qualified`);
+      setProgress(5+Math.round(((i+batchSize)/universe.length)*82),`Screening... ${Math.min(i+batchSize,universe.length)}/${universe.length}`,`${stocks.length} qualified`);
       if(i+batchSize<universe.length) await sleep(180);
     }
 
@@ -701,17 +740,16 @@ async function runPoly(){
     setProgress(100,`Done — ${stocks.length} stocks × ${dates.length} expiries`);
     hideProgress(); showResults(); setDot("ok");
     const now=new Date();
-    document.getElementById("last-updated").textContent=`Polygon · ${now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})} · 15-min delayed · ${stocks.length}/${universe.length} qualified`;
+    document.getElementById("last-updated").textContent=`Polygon · ${now.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · 15-min delayed · ${stocks.length}/${universe.length} qualified`;
     render();
 
   } catch(err){
     setDot("error"); hideProgress();
-    showMsg(`<span style="color:var(--red)">⚠ ${err.message}</span><br><span style="font-size:12px">Check your API key is active at polygon.io/dashboard</span>`);
+    showMsg(`<span style="color:var(--red)">⚠ ${err.message}</span><br><span style="font-size:12px">Check your key is active at polygon.io/dashboard</span>`);
     document.getElementById("last-updated").textContent="Error";
   }
-  isRunning=false;
-  document.getElementById("polyRunBtn").disabled=false;
-  document.getElementById("refreshBtn").disabled=false;
+
+  isRunning=false; setBtns(false);
 }
 
 // ── Render ────────────────────────────────────────────
@@ -736,7 +774,7 @@ function render(){
     const yCls=d.yield>=10?"yg":d.yield>=7?"yo":"yl";
     const expType=d.isMonthly?`<span class="exp-m">M</span>`:`<span class="exp-w">W</span>`;
     const rank=i<5?`<span class="rank">#${i+1}</span>`:"";
-    const chip=d.source==="poly"?`<span class="src-chip chip-p">POLY</span>`:`<span class="src-chip chip-y">YAHOO</span>`;
+    const chip=d.source==="poly"?`<span class="src-chip chip-p">POLY</span>`:`<span class="src-chip chip-f">FH</span>`;
     return`<tr>
       <td><span class="ticker-sym">${d.ticker}</span>${rank}</td>
       <td class="mono">$${d.price.toFixed(2)}</td>
@@ -764,7 +802,9 @@ function updateMetrics(rows){
   document.getElementById("m4sub").textContent=n?`of ${n} shown`:"";
 }
 
-loadPolyKey();
+// ── Init ──────────────────────────────────────────────
+updateKeyIndicator("finn");
+updateKeyIndicator("poly");
 </script>
 </body>
 </html>
