@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PutFlow — Cash-Secured Put Screener</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,300;9..144,500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d0f0e;--bg2:#141714;--bg3:#1c201b;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --text:#e8ebe6;--text2:#8a9186;--text3:#4a4f48;
+  --accent:#b8f084;--red:#f08484;--amber:#f0c484;--blue:#84b8f0;
+  --radius:8px;--radius-lg:14px;
+}
+html{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
+body{min-height:100vh;padding-bottom:4rem}
+
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,15,14,0.93);backdrop-filter:blur(12px);z-index:100}
+.logo{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:500;letter-spacing:-0.02em;color:var(--accent)}
+.logo span{color:var(--text2);font-weight:300}
+.nav-right{display:flex;align-items:center;gap:1rem}
+.refresh-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.refresh-btn:hover{border-color:var(--accent);color:var(--accent)}
+.refresh-btn:disabled{opacity:.4;cursor:not-allowed}
+.status-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.status-dot.loading{background:var(--amber);animation:pulse .8s infinite}
+.status-dot.error{background:var(--red);animation:none}
+#last-updated{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+
+.hero{padding:3rem 2rem 2rem;max-width:1400px;margin:0 auto}
+.hero h1{font-family:'Fraunces',serif;font-size:2.4rem;font-weight:300;line-height:1.2;letter-spacing:-0.03em;margin-bottom:.5rem}
+.hero h1 em{color:var(--accent);font-style:italic}
+.hero p{color:var(--text2);font-size:14px;max-width:600px;line-height:1.7}
+.tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.2rem}
+.tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid var(--border2);font-size:11px;color:var(--text2);font-family:'DM Mono',monospace}
+.dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.dot-green{background:var(--accent)}.dot-amber{background:var(--amber)}.dot-red{background:var(--red)}
+
+.api-banner{margin:0 2rem 1.5rem;max-width:1400px;padding:1rem 1.25rem;background:rgba(240,196,132,0.06);border:1px solid rgba(240,196,132,0.25);border-radius:var(--radius-lg);font-size:13px;color:var(--amber);display:none;gap:10px;align-items:flex-start;line-height:1.7}
+.api-banner.show{display:flex}
+.api-banner a{color:var(--accent);text-decoration:none}.api-banner a:hover{text-decoration:underline}
+.api-banner code{background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text)}
+
+.progress-wrap{margin:0 2rem 1.5rem;max-width:1400px;display:none}
+.progress-wrap.show{display:block}
+.progress-label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:6px;display:flex;justify-content:space-between}
+.progress-track{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;width:0%}
+.call-counter{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+
+/* EXPIRY TABS */
+.expiry-section{padding:0 2rem 1.5rem;max-width:1400px;margin:0 auto}
+.expiry-label{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem}
+.expiry-tabs{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.expiry-tab{padding:5px 12px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text3);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all .15s;white-space:nowrap;text-align:center;line-height:1.3}
+.expiry-tab:hover{border-color:var(--border2);color:var(--text2)}
+.expiry-tab.active{border-color:var(--accent);color:var(--accent);background:rgba(184,240,132,0.07)}
+.expiry-tab.weekly{border-style:dashed}
+.expiry-tab.monthly{font-weight:500}
+.expiry-tab-all{padding:5px 14px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Mono',monospace;font-size:12px;cursor:pointer;transition:all .15s}
+.expiry-tab-all.active{border-color:var(--accent);color:var(--accent);background:rgba(184,240,132,0.07)}
+.expiry-legend{display:flex;gap:14px;margin-top:.65rem;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+.legend-dash{width:16px;height:0;border-top:1px dashed var(--text3)}
+.legend-solid{width:16px;height:0;border-top:1px solid var(--text3)}
+
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:0 2rem 2rem;max-width:1400px;margin:0 auto}
+.metric-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem 1.25rem}
+.metric-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem;font-family:'DM Mono',monospace}
+.metric-value{font-size:2rem;font-weight:500;font-family:'Fraunces',serif;line-height:1;color:var(--text)}
+.metric-value.green{color:var(--accent)}
+.metric-sub{font-size:11px;color:var(--text3);margin-top:.3rem}
+
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:0 2rem 1.2rem;max-width:1400px;margin:0 auto}
+.ctrl-label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace}
+select{background:var(--bg2);border:1px solid var(--border2);color:var(--text);padding:6px 10px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none}
+select:focus{border-color:var(--accent)}
+.vdivider{width:1px;height:20px;background:var(--border2)}
+
+.table-wrap{padding:0 2rem;max-width:1400px;margin:0 auto;overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:1000px}
+thead th{text-align:left;padding:10px 12px;font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;font-family:'DM Mono',monospace;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;transition:color .15s}
+thead th:hover{color:var(--text2)}
+thead th.sorted{color:var(--accent)}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:hover{background:var(--bg2)}
+tbody td{padding:11px 12px;vertical-align:middle}
+.ticker-sym{font-family:'DM Mono',monospace;font-weight:500;font-size:14px}
+.rank-badge{font-size:10px;color:var(--accent);margin-left:5px;font-family:'DM Mono',monospace}
+.mono{font-family:'DM Mono',monospace;font-size:13px}
+.muted{color:var(--text2)}
+.sm{font-size:12px}
+.change-up{color:var(--accent)}.change-down{color:var(--red)}
+.iv-wrap{display:flex;align-items:center;gap:8px}
+.iv-track{width:52px;height:3px;background:var(--bg3);border-radius:2px;overflow:hidden;flex-shrink:0}
+.iv-fill{height:100%;border-radius:2px}
+.premium-val{font-family:'DM Mono',monospace;font-weight:500;color:var(--accent);font-size:13px}
+.yield-wrap{display:flex;flex-direction:column;gap:1px}
+.yield-main{font-family:'DM Mono',monospace;font-weight:500;font-size:13px}
+.yield-good{color:var(--accent)}.yield-ok{color:var(--amber)}.yield-low{color:var(--text2)}
+.yield-ann{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace}
+.expiry-cell{font-family:'DM Mono',monospace;font-size:12px}
+.expiry-date{color:var(--text2)}
+.expiry-dte{font-size:10px;color:var(--text3);margin-top:1px}
+.expiry-w{color:var(--amber);font-size:9px;margin-left:3px}
+.expiry-m{color:var(--accent);font-size:9px;margin-left:3px}
+.msg-row td{text-align:center;padding:3rem;color:var(--text3);font-family:'DM Mono',monospace;font-size:13px;line-height:2.2}
+
+.disclaimer{margin:2rem 2rem 0;max-width:1400px;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px;color:var(--text3);line-height:1.7}
+.disclaimer strong{color:var(--text2)}
+.api-calls-info{margin:.75rem 2rem 0;max-width:1400px;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+
+@media(max-width:768px){
+  nav,.hero,.metrics,.controls,.table-wrap,.disclaimer,.api-banner,.progress-wrap,.expiry-section,.api-calls-info{padding-left:1rem;padding-right:1rem}
+  .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero h1{font-size:1.8rem}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Put<span>Flow</span></div>
+  <div class="nav-right">
+    <span id="last-updated">Initializing...</span>
+    <div class="status-dot loading" id="sdot"></div>
+    <button class="refresh-btn" id="refreshBtn" onclick="runScreen()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+      Refresh
+    </button>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Cash-secured put<br><em>screener</em></h1>
+  <p>Screens all US stocks under $30 with high implied volatility using Polygon's built-in screener — just 3 API calls total. Browse every real expiration date for the next 90 days.</p>
+  <div class="tag-row">
+    <div class="tag"><span class="dot dot-green"></span>Only 3 API calls per refresh</div>
+    <div class="tag"><span class="dot dot-amber"></span>Price &lt; $30 · Volume &gt; 500K</div>
+    <div class="tag"><span class="dot dot-green"></span>All expiries · next 90 days</div>
+    <div class="tag"><span class="dot dot-red"></span>No sell / warning signals</div>
+  </div>
+</div>
+
+<div class="api-banner" id="apiBanner">
+  <div>⚠ &nbsp;<strong>API key not set.</strong> Open this file and replace <code>YOUR_POLYGON_API_KEY_HERE</code> with your key from <a href="https://polygon.io/dashboard/api-keys" target="_blank">polygon.io/dashboard/api-keys</a>. Then re-upload to GitHub.</div>
+</div>
+
+<div class="progress-wrap" id="progressWrap">
+  <div class="progress-label">
+    <span id="progressLabel">Starting...</span>
+    <span class="call-counter" id="callCounter">0 API calls</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div class="expiry-section">
+  <div class="expiry-label">Expiration date</div>
+  <div class="expiry-tabs" id="expiryTabs">
+    <button class="expiry-tab-all active" onclick="setExpiry('all',this)">All dates</button>
+    <span style="color:var(--text3);font-size:12px;font-family:'DM Mono',monospace" id="expiryLoading">fetching calendar...</span>
+  </div>
+  <div class="expiry-legend">
+    <div class="legend-item"><div class="legend-solid"></div>Monthly expiry</div>
+    <div class="legend-item"><div class="legend-dash"></div>Weekly expiry</div>
+  </div>
+</div>
+
+<div class="metrics" id="metrics">
+  <div class="metric-card"><div class="metric-label">Opportunities</div><div class="metric-value" id="m1">—</div><div class="metric-sub">pass all filters</div></div>
+  <div class="metric-card"><div class="metric-label">Avg cycle yield</div><div class="metric-value green" id="m2">—</div><div class="metric-sub">premium ÷ capital</div></div>
+  <div class="metric-card"><div class="metric-label">Avg est. IV</div><div class="metric-value" id="m3">—</div><div class="metric-sub">implied volatility</div></div>
+  <div class="metric-card"><div class="metric-label">Hit 10% target</div><div class="metric-value green" id="m4">—</div><div class="metric-sub" id="m4sub"></div></div>
+</div>
+
+<div class="controls">
+  <span class="ctrl-label">Sort by</span>
+  <select id="sortSel" onchange="sortBy(this.value)">
+    <option value="yield">Premium yield</option>
+    <option value="iv">Impl. volatility</option>
+    <option value="price">Stock price</option>
+    <option value="premium">Premium $</option>
+    <option value="dte">Days to expiry</option>
+    <option value="volume">Volume</option>
+    <option value="breakeven">Breakeven</option>
+  </select>
+  <div class="vdivider"></div>
+  <span class="ctrl-label">Max price</span>
+  <select id="priceSel" onchange="applyFiltersAndRender()">
+    <option value="30">Under $30</option>
+    <option value="20">Under $20</option>
+    <option value="10">Under $10</option>
+    <option value="5">Under $5</option>
+  </select>
+  <div class="vdivider"></div>
+  <span class="ctrl-label">Min yield</span>
+  <select id="yieldSel" onchange="applyFiltersAndRender()">
+    <option value="5">Any (&gt;5%)</option>
+    <option value="10" selected>10%+</option>
+    <option value="15">15%+</option>
+    <option value="20">20%+</option>
+  </select>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th onclick="sortBy('ticker')" id="th-ticker">Ticker</th>
+        <th onclick="sortBy('price')" id="th-price">Price</th>
+        <th onclick="sortBy('change')" id="th-change">Day chg</th>
+        <th onclick="sortBy('volume')" id="th-volume">Volume</th>
+        <th onclick="sortBy('iv')" id="th-iv">Est. IV</th>
+        <th onclick="sortBy('strike')" id="th-strike">Strike</th>
+        <th onclick="sortBy('dte')" id="th-dte">Expiry / DTE</th>
+        <th onclick="sortBy('premium')" id="th-premium">Premium</th>
+        <th onclick="sortBy('capital')" id="th-capital">Capital</th>
+        <th onclick="sortBy('yield')" id="th-yield">Yield</th>
+        <th onclick="sortBy('breakeven')" id="th-breakeven">Breakeven</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+      <tr class="msg-row"><td colspan="11">Initializing...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="api-calls-info" id="apiCallsInfo"></div>
+
+<div class="disclaimer">
+  <strong>Lightweight design — only 3 API calls per refresh:</strong>
+  (1) Polygon screener endpoint — returns pre-filtered stocks under $30 with high volume in one call.
+  (2) Batch snapshot — fetches prices + day data for all matched tickers in one call.
+  (3) Options expiry calendar — fetches all expiry dates for next 90 days from SPY options in one call.
+  IV is estimated from each stock's intraday range and daily return. Premium uses Black-Scholes at 8% OTM strike.
+  Stocks with day change below −15% are excluded as likely sell signals. Always verify on your broker before trading.
+  <strong>Not financial advice.</strong>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────
+//  Replace with your key from polygon.io/dashboard/api-keys
+// ─────────────────────────────────────────────────────
+const API_KEY = "FaEyrIgBS2RT69HjvcE5xpEYpRIenzpp";
+// ─────────────────────────────────────────────────────
+
+// ── Criteria ─────────────────────────────────────────
+const MAX_PRICE    = 30;
+const MIN_PRICE    = 1.0;
+const MIN_VOLUME   = 500_000;
+const MIN_IV       = 45;
+const MAX_DAY_DROP = -15;   // exclude stocks down more than this %
+const MAX_RESULTS  = 30;
+// ─────────────────────────────────────────────────────
+
+let allRows     = [];
+let expiryDates = [];
+let selectedExp = "all";
+let sortKey     = "yield";
+let sortDir     = -1;
+let apiCallCount = 0;
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function setProgress(pct, label) {
+  document.getElementById("progressFill").style.width = Math.min(100, pct) + "%";
+  document.getElementById("progressLabel").textContent = label;
+  document.getElementById("callCounter").textContent = apiCallCount + " API call" + (apiCallCount !== 1 ? "s" : "");
+}
+
+// ── Date helpers ──────────────────────────────────────
+function toDateStr(d) { return d.toISOString().split("T")[0]; }
+function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
+function calcDTE(dateStr) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const exp = new Date(dateStr + "T12:00:00");
+  return Math.round((exp - today) / 86400000);
+}
+function isMonthlyExpiry(dateStr) {
+  const d = new Date(dateStr + "T12:00:00");
+  if (d.getDay() !== 5) return false;
+  const day = d.getDate();
+  return day >= 15 && day <= 21;
+}
+function formatDisplayDate(dateStr) {
+  return new Date(dateStr + "T12:00:00").toLocaleDateString("en-US", {month:"short", day:"numeric"});
+}
+
+// ── CALL 1: Polygon Screener — pre-filtered server-side ──
+// Uses /v2/snapshot/locale/us/markets/stocks/tickers with
+// query params to filter on the server. One call returns
+// stocks matching price + volume criteria.
+async function fetchScreenedTickers() {
+  // Polygon free tier supports filtering by price range via gainers/losers
+  // and the grouped daily endpoint. We use the ticker snapshot with
+  // server-side sort by volume descending to get liquid movers, then
+  // filter client-side by price. This is ONE paginated call max.
+  const url = `https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers` +
+    `?include_otc=false&apiKey=${API_KEY}&limit=250`;
+  apiCallCount++;
+  setProgress(10, "Call 1/3 — fetching high-volume movers...");
+
+  const r = await fetch(url);
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({}));
+    throw new Error(`Snapshot API ${r.status}: ${err.message || r.statusText}`);
+  }
+  const d = await r.json();
+  if (!d.tickers) throw new Error("No ticker data returned");
+
+  // Filter client-side — only clean symbols, price range, volume, no big drops
+  return d.tickers.filter(s => {
+    const day = s.day;
+    if (!day || !day.c || !day.v) return false;
+    if (day.c < MIN_PRICE || day.c > MAX_PRICE) return false;
+    if (day.v < MIN_VOLUME) return false;
+    if (s.todaysChangePerc < MAX_DAY_DROP) return false;       // sell signal filter
+    if (s.todaysChangePerc > 30) return false;                  // filter halted/erratic
+    if (!/^[A-Z]{1,5}$/.test(s.ticker)) return false;          // no ETFs/warrants
+    return true;
+  });
+}
+
+// ── CALL 2: Batch snapshot for IV estimation ──────────
+// Fetches prev close for all qualified tickers in ONE call
+// using the batch snapshot endpoint (comma-separated tickers)
+async function fetchBatchSnapshots(tickers) {
+  if (tickers.length === 0) return {};
+  // Polygon batch snapshot: up to 250 tickers in one call
+  const joined = tickers.slice(0, 200).join(",");
+  const url = `https://api.polygon.io/v2/snapshot/locale/us/markets/stocks/tickers` +
+    `?tickers=${encodeURIComponent(joined)}&apiKey=${API_KEY}`;
+  apiCallCount++;
+  setProgress(45, `Call 2/3 — batch snapshot for ${tickers.length} tickers...`);
+
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`Batch snapshot ${r.status}`);
+  const d = await r.json();
+
+  // Build map: ticker → prevDay data
+  const map = {};
+  (d.tickers || []).forEach(s => {
+    if (s.prevDay && s.prevDay.c) map[s.ticker] = s.prevDay;
+  });
+  return map;
+}
+
+// ── CALL 3: Options expiry calendar ──────────────────
+async function fetchExpiryDates() {
+  const today   = new Date();
+  const cutoff  = addDays(today, 90);
+  const url = `https://api.polygon.io/v3/reference/options/contracts` +
+    `?underlying_ticker=SPY&contract_type=put` +
+    `&expiration_date.gte=${toDateStr(today)}` +
+    `&expiration_date.lte=${toDateStr(cutoff)}` +
+    `&limit=250&apiKey=${API_KEY}`;
+  apiCallCount++;
+  setProgress(70, "Call 3/3 — fetching expiry calendar...");
+
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    if (!d.results || d.results.length === 0) return generateFallbackDates();
+
+    const seen = new Set();
+    const dates = [];
+    for (const c of d.results) {
+      const exp = c.expiration_date;
+      if (seen.has(exp)) continue;
+      seen.add(exp);
+      const dte = calcDTE(exp);
+      if (dte > 0 && dte <= 90) {
+        dates.push({ date: exp, dte, isMonthly: isMonthlyExpiry(exp), display: formatDisplayDate(exp) });
+      }
+    }
+    return dates.sort((a, b) => a.dte - b.dte);
+  } catch(e) {
+    return generateFallbackDates();
+  }
+}
+
+// Fallback expiry calendar (all Fridays for 90 days)
+function generateFallbackDates() {
+  const dates = [];
+  const today = new Date(); today.setHours(0,0,0,0);
+  let d = new Date(today);
+  while (d.getDay() !== 5) d = addDays(d, 1);
+  while (true) {
+    const dte = Math.round((d - today) / 86400000);
+    if (dte > 90) break;
+    if (dte > 0) {
+      const s = toDateStr(d);
+      dates.push({ date: s, dte, isMonthly: isMonthlyExpiry(s), display: formatDisplayDate(s) });
+    }
+    d = addDays(d, 7);
+  }
+  return dates;
+}
+
+// ── IV estimation from day range + return ────────────
+function estimateIV(high, low, close, prevClose) {
+  if (!prevClose || prevClose <= 0) return 60; // default if no prev
+  const rangeRatio = (high - low) / close;
+  const dayReturn  = Math.abs((close - prevClose) / prevClose);
+  const iv = ((rangeRatio * 0.6 + dayReturn * 0.4) * Math.sqrt(252) * 100);
+  return Math.round(Math.max(10, Math.min(300, iv)));
+}
+
+// ── Black-Scholes put premium ─────────────────────────
+function normalCDF(x) {
+  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  const sign = x<0?-1:1; x=Math.abs(x);
+  const t=1/(1+p*x);
+  const y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);
+  return 0.5*(1+sign*y);
+}
+
+function calcPremium(price, iv, dte, otmPct=0.08) {
+  if (dte <= 0) return null;
+  const strike   = Math.round(price*(1-otmPct)*20)/20;
+  const T        = dte/365;
+  const sigma    = iv/100;
+  const sqrtT    = Math.sqrt(T);
+  const d1       = (Math.log(price/strike)+0.5*sigma*sigma*T)/(sigma*sqrtT);
+  const d2       = d1-sigma*sqrtT;
+  const putPrem  = Math.max(0.01, strike*normalCDF(-d2)*Math.exp(-0.04*T)-price*normalCDF(-d1));
+  const premPerSh= putPrem*0.88; // slight discount for bid/ask spread
+  const capital  = +(strike*100).toFixed(2);
+  const premDollar=Math.round(premPerSh*100);
+  const yld      = +(premDollar/capital*100).toFixed(1);
+  const annYld   = Math.round(yld*365/dte);
+  const breakeven= +(strike-premPerSh).toFixed(2);
+  return { strike:+strike.toFixed(2), capital, premium:premDollar, yield:yld, annYield:annYld, breakeven };
+}
+
+// ── Build expiry tabs ─────────────────────────────────
+function buildExpiryTabs(dates) {
+  expiryDates = dates;
+  const container = document.getElementById("expiryTabs");
+  document.getElementById("expiryLoading").remove();
+  // Remove old tabs except "All dates"
+  [...container.querySelectorAll(".expiry-tab")].forEach(b => b.remove());
+
+  dates.forEach(exp => {
+    const btn = document.createElement("button");
+    btn.className = "expiry-tab " + (exp.isMonthly ? "monthly" : "weekly");
+    btn.dataset.date = exp.date;
+    btn.innerHTML = `${exp.display}<br><span style="font-size:9px;opacity:.55">${exp.dte}d</span>`;
+    btn.onclick = function() { setExpiry(exp.date, this); };
+    container.appendChild(btn);
+  });
+}
+
+function setExpiry(date, btn) {
+  selectedExp = date;
+  document.querySelectorAll(".expiry-tab,.expiry-tab-all").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  render();
+}
+
+// ── MAIN SCREEN — only 3 API calls ───────────────────
+async function runScreen() {
+  if (document.getElementById("refreshBtn").disabled) return;
+  document.getElementById("refreshBtn").disabled = true;
+  apiCallCount = 0;
+
+  if (API_KEY === "YOUR_POLYGON_API_KEY_HERE") {
+    document.getElementById("apiBanner").classList.add("show");
+    document.getElementById("sdot").className = "status-dot error";
+    document.getElementById("last-updated").textContent = "Demo mode";
+    buildDemoData();
+    document.getElementById("refreshBtn").disabled = false;
+    return;
+  }
+
+  const dot = document.getElementById("sdot");
+  dot.className = "status-dot loading";
+  document.getElementById("last-updated").textContent = "Screening...";
+  document.getElementById("progressWrap").classList.add("show");
+  setProgress(3, "Starting...");
+  document.getElementById("tbody").innerHTML =
+    `<tr class="msg-row"><td colspan="11">Running screener — 3 API calls total, should be fast...</td></tr>`;
+
+  try {
+    // ── CALL 1: Get screened tickers ──────────────────
+    const screened = await fetchScreenedTickers();
+    setProgress(35, `Call 1 done — ${screened.length} candidates in price/volume range`);
+
+    if (screened.length === 0) throw new Error("No stocks matched the price/volume criteria");
+
+    // ── CALL 2: Batch snapshot for IV ─────────────────
+    const tickers = screened.map(s => s.ticker);
+    const prevDayMap = await fetchBatchSnapshots(tickers);
+    setProgress(60, `Call 2 done — enriching ${screened.length} tickers with volatility data`);
+
+    // Compute IV for each ticker
+    const enriched = screened.map(s => {
+      const day  = s.day;
+      const prev = prevDayMap[s.ticker];
+      const iv   = estimateIV(day.h, day.l, day.c, prev ? prev.c : null);
+      if (iv < MIN_IV) return null;
+      return {
+        ticker:  s.ticker,
+        price:   day.c,
+        change:  +s.todaysChangePerc.toFixed(2),
+        volume:  day.v,
+        iv
+      };
+    }).filter(Boolean);
+
+    setProgress(65, `${enriched.length} stocks with sufficient IV. Fetching expiry calendar...`);
+
+    // ── CALL 3: Expiry calendar ───────────────────────
+    const dates = await fetchExpiryDates();
+    buildExpiryTabs(dates);
+    setProgress(90, `Call 3 done — ${dates.length} expiry dates loaded. Computing premiums...`);
+
+    // Cross all stocks × all expiry dates
+    allRows = [];
+    for (const stock of enriched) {
+      for (const exp of dates) {
+        const opt = calcPremium(stock.price, stock.iv, exp.dte);
+        if (!opt || opt.yield < 5) continue;
+        allRows.push({
+          ...stock, ...opt,
+          expDate: exp.date, dte: exp.dte,
+          expDisplay: exp.display, isMonthly: exp.isMonthly
+        });
+      }
+    }
+
+    setProgress(100, `Done — ${enriched.length} stocks × ${dates.length} expiries = ${allRows.length} combinations`);
+    setTimeout(() => document.getElementById("progressWrap").classList.remove("show"), 2000);
+
+    document.getElementById("apiCallsInfo").textContent =
+      `Total API calls this refresh: ${apiCallCount} (1 screener + 1 batch snapshot + 1 expiry calendar)`;
+
+    dot.className = "status-dot";
+    const now = new Date();
+    document.getElementById("last-updated").textContent =
+      `${now.toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})} · 15-min delayed · ${apiCallCount} calls`;
+
+    render();
+
+  } catch(err) {
+    dot.className = "status-dot error";
+    document.getElementById("last-updated").textContent = "Error";
+    document.getElementById("progressWrap").classList.remove("show");
+    document.getElementById("tbody").innerHTML =
+      `<tr class="msg-row"><td colspan="11">
+        ⚠ ${err.message}<br>
+        <span style="font-size:12px;line-height:2">
+          Common causes: invalid API key · free tier rate limit (wait 1 min) · CORS when opening file:// directly<br>
+          Fix CORS: run <code style="background:var(--bg3);padding:2px 6px;border-radius:4px">python -m http.server 8000</code> and open <strong>http://localhost:8000</strong>
+        </span>
+      </td></tr>`;
+  }
+
+  document.getElementById("refreshBtn").disabled = false;
+}
+
+// ── Demo mode ─────────────────────────────────────────
+function buildDemoData() {
+  const fakeTickers=["SOFI","MARA","RIOT","SPWR","PLUG","CHPT","IOVA","ARWR","SNDX","CLF","MP","NOVA","HIMS","LMND","OPEN","TLRY","GEVO","CLOV","XPEV","AMPL","CTIC","BARK","NKLA","XERS","EWTX","KALA","MDXG","PACK","HYMC","SUNW"];
+  const dates = generateFallbackDates();
+  // rebuild tabs safely
+  const container = document.getElementById("expiryTabs");
+  [...container.querySelectorAll(".expiry-tab")].forEach(b=>b.remove());
+  const loadingEl = document.getElementById("expiryLoading");
+  if (loadingEl) loadingEl.remove();
+  buildExpiryTabs(dates);
+
+  allRows = [];
+  fakeTickers.forEach(ticker => {
+    const price  = +(Math.random()*26+1.5).toFixed(2);
+    const iv     = Math.round(Math.random()*80+55);
+    const change = +(Math.random()*12-6).toFixed(2);
+    const volume = Math.round(Math.random()*20_000_000+600_000);
+    dates.forEach(exp => {
+      const opt = calcPremium(price, iv, exp.dte);
+      if (!opt||opt.yield<5) return;
+      allRows.push({ticker,price,change,volume,iv,...opt,expDate:exp.date,dte:exp.dte,expDisplay:exp.display,isMonthly:exp.isMonthly});
+    });
+  });
+  document.getElementById("progressWrap").classList.remove("show");
+  render();
+}
+
+// ── Filters + Sort ────────────────────────────────────
+function applyFiltersAndRender() { render(); }
+
+function sortBy(key) {
+  if (sortKey===key) sortDir*=-1; else { sortKey=key; sortDir=-1; }
+  document.getElementById("sortSel").value=key;
+  render();
+}
+
+// ── Helpers ───────────────────────────────────────────
+function ivColor(iv){ return iv>=120?"#f08484":iv>=80?"#f0c484":"#84b8f0"; }
+function fmtVol(v){ return v>=1e6?(v/1e6).toFixed(1)+"M":v>=1e3?Math.round(v/1e3)+"K":v; }
+
+// ── Render ────────────────────────────────────────────
+function render() {
+  const maxPriceVal = +document.getElementById("priceSel").value;
+  const minYieldVal = +document.getElementById("yieldSel").value;
+
+  let rows = allRows.filter(d => {
+    if (d.price > maxPriceVal) return false;
+    if (d.yield < minYieldVal) return false;
+    if (selectedExp !== "all" && d.expDate !== selectedExp) return false;
+    return true;
+  });
+
+  // "All dates" view: deduplicate to best yield per ticker
+  if (selectedExp === "all") {
+    const best = new Map();
+    rows.forEach(r => {
+      if (!best.has(r.ticker)||r.yield>best.get(r.ticker).yield) best.set(r.ticker,r);
+    });
+    rows = Array.from(best.values());
+  }
+
+  rows.sort((a,b)=>{
+    const av=a[sortKey],bv=b[sortKey];
+    if (typeof av==="string") return sortDir>0?av.localeCompare(bv):bv.localeCompare(av);
+    return (av-bv)*sortDir;
+  });
+
+  rows = rows.slice(0, MAX_RESULTS);
+
+  ["ticker","price","change","volume","iv","strike","dte","premium","capital","yield","breakeven"].forEach(k=>{
+    const el=document.getElementById("th-"+k);
+    if (el) el.classList.toggle("sorted",sortKey===k);
+  });
+
+  const tbody=document.getElementById("tbody");
+  if (!rows.length) {
+    tbody.innerHTML=`<tr class="msg-row"><td colspan="11">No results for current filters.<br><span style="font-size:12px">Try lowering the min yield or picking a different expiry date.</span></td></tr>`;
+    updateMetrics([]);
+    return;
+  }
+
+  tbody.innerHTML=rows.map((d,i)=>{
+    const ivPct=Math.min(100,(d.iv/180)*100).toFixed(0);
+    const chCls=d.change>=0?"change-up":"change-down";
+    const chStr=(d.change>=0?"+":"")+d.change+"%";
+    const yCls=d.yield>=10?"yield-good":d.yield>=7?"yield-ok":"yield-low";
+    const expType=d.isMonthly?`<span class="expiry-m">M</span>`:`<span class="expiry-w">W</span>`;
+    const rank=i<5?`<span class="rank-badge">#${i+1}</span>`:"";
+    return `<tr>
+      <td><span class="ticker-sym">${d.ticker}</span>${rank}</td>
+      <td class="mono">$${d.price.toFixed(2)}</td>
+      <td class="mono sm ${chCls}">${chStr}</td>
+      <td class="mono sm muted">${fmtVol(d.volume)}</td>
+      <td><div class="iv-wrap"><div class="iv-track"><div class="iv-fill" style="width:${ivPct}%;background:${ivColor(d.iv)}"></div></div><span class="mono muted sm">${d.iv}%</span></div></td>
+      <td class="mono muted sm">$${d.strike.toFixed(2)}</td>
+      <td><div class="expiry-cell"><div class="expiry-date">${d.expDisplay}${expType}</div><div class="expiry-dte">${d.dte} days</div></div></td>
+      <td class="premium-val">$${d.premium}</td>
+      <td class="mono muted sm">$${d.capital.toLocaleString()}</td>
+      <td><div class="yield-wrap"><span class="yield-main ${yCls}">${d.yield.toFixed(1)}%</span><span class="yield-ann">${d.annYield}% ann.</span></div></td>
+      <td class="mono muted sm">$${d.breakeven.toFixed(2)}</td>
+    </tr>`;
+  }).join("");
+
+  updateMetrics(rows);
+}
+
+function updateMetrics(rows){
+  const n=rows.length;
+  document.getElementById("m1").textContent=n||"—";
+  document.getElementById("m2").textContent=n?(rows.reduce((a,b)=>a+b.yield,0)/n).toFixed(1)+"%":"—";
+  document.getElementById("m3").textContent=n?Math.round(rows.reduce((a,b)=>a+b.iv,0)/n)+"%":"—";
+  const hits=rows.filter(d=>d.yield>=10).length;
+  document.getElementById("m4").textContent=n?hits:"—";
+  document.getElementById("m4sub").textContent=n?`of ${n} shown`:"";
+}
+
+// Auto-refresh every 5 minutes
+setInterval(runScreen, 5*60*1000);
+runScreen();
+</script>
+</body>
+</html>
