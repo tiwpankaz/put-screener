@@ -18,27 +18,27 @@
 html{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.6}
 body{min-height:100vh;padding-bottom:4rem}
 
-/* ── MODAL ── */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:1000;display:none;align-items:center;justify-content:center;padding:1rem}
 .modal-overlay.show{display:flex}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:2rem;max-width:440px;width:100%}
-.modal h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:300;margin-bottom:.5rem;color:var(--text)}
-.modal p{font-size:13px;color:var(--text3);line-height:1.7;margin-bottom:1.25rem}
-.modal p a{color:var(--accent);text-decoration:none}
-.modal p a:hover{text-decoration:underline}
-.modal-input{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 12px;border-radius:var(--radius);font-family:'DM Mono',monospace;font-size:13px;outline:none;margin-bottom:.75rem}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-lg);padding:2rem;max-width:460px;width:100%}
+.modal h2{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:300;margin-bottom:.4rem}
+.modal-sub{font-size:13px;color:var(--text3);line-height:1.7;margin-bottom:1.25rem}
+.modal-sub a{color:var(--accent);text-decoration:none}.modal-sub a:hover{text-decoration:underline}
+.modal-sub ol{margin:.5rem 0 0 1.2rem}
+.modal-sub li{margin-bottom:.2rem}
+.modal-input{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:10px 12px;border-radius:var(--radius);font-family:'DM Mono',monospace;font-size:13px;outline:none;margin-bottom:.5rem}
 .modal-input:focus{border-color:var(--accent)}
 .modal-input::placeholder{color:var(--text3)}
-.modal-err{font-size:12px;color:var(--red);margin-bottom:.75rem;display:none}
+.modal-err{font-size:12px;color:var(--red);margin-bottom:.75rem;min-height:18px}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end}
 .modal-btn{padding:8px 18px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
 .modal-btn.primary{background:rgba(184,240,132,0.1);border:1px solid var(--accent);color:var(--accent)}
 .modal-btn.primary:hover{background:rgba(184,240,132,0.18)}
 .modal-btn.secondary{background:transparent;border:1px solid var(--border2);color:var(--text2)}
-.modal-btn.secondary:hover{border-color:var(--border);color:var(--text)}
-.modal-note{font-size:11px;color:var(--text3);margin-top:.75rem;font-family:'DM Mono',monospace}
+.modal-note{font-size:11px;color:var(--text3);margin-top:.75rem;font-family:'DM Mono',monospace;line-height:1.5}
 
-/* ── NAV ── */
+/* NAV */
 nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(13,15,14,0.93);backdrop-filter:blur(12px);z-index:100}
 .logo{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:500;letter-spacing:-0.02em;color:var(--accent)}
 .logo span{color:var(--text2);font-weight:300}
@@ -46,95 +46,94 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem
 .refresh-btn{display:flex;align-items:center;gap:6px;padding:6px 14px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
 .refresh-btn:hover{border-color:var(--accent);color:var(--accent)}
 .refresh-btn:disabled{opacity:.4;cursor:not-allowed}
-.status-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--text3)}
-.status-dot.loading{background:var(--amber);animation:pulse .8s infinite}
-.status-dot.ok{background:var(--accent);animation:pulse 2s infinite}
-.status-dot.error{background:var(--red)}
+.sdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--text3)}
+.sdot.loading{background:var(--amber);animation:pulse .8s infinite}
+.sdot.ok{background:var(--accent);animation:pulse 2s infinite}
+.sdot.error{background:var(--red)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 #last-updated{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
 
-/* ── HERO ── */
+/* HERO */
 .hero{padding:2.5rem 2rem 1.5rem;max-width:1400px;margin:0 auto}
 .hero h1{font-family:'Fraunces',serif;font-size:2.2rem;font-weight:300;line-height:1.2;letter-spacing:-0.03em;margin-bottom:.4rem}
 .hero h1 em{color:var(--accent);font-style:italic}
-.hero p{color:var(--text2);font-size:14px;max-width:620px;line-height:1.7}
+.hero p{color:var(--text2);font-size:14px;max-width:640px;line-height:1.7}
 .tag-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1rem}
 .tag{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid var(--border2);font-size:11px;color:var(--text2);font-family:'DM Mono',monospace}
 .dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.dot-green{background:var(--accent)}.dot-amber{background:var(--amber)}.dot-blue{background:var(--blue)}.dot-red{background:var(--red)}
+.dot-g{background:var(--accent)}.dot-b{background:var(--blue)}.dot-a{background:var(--amber)}.dot-r{background:var(--red)}
 
-/* ── SOURCE TABS ── */
+/* SOURCE TABS */
 .source-tabs{display:flex;padding:1.5rem 2rem 0;max-width:1400px;margin:0 auto}
-.source-tab{display:flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
-.source-tab:first-child{border-radius:var(--radius-lg) 0 0 0;border-right:none}
-.source-tab:last-child{border-radius:0 var(--radius-lg) 0 0}
-.source-tab.active{background:var(--bg2);color:var(--text);border-bottom-color:var(--bg2)}
-.source-tab:not(.active):hover{color:var(--text);background:rgba(255,255,255,0.02)}
-.tab-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
-.icon-f{background:rgba(184,240,132,0.15);color:var(--accent)}
-.icon-p{background:rgba(132,184,240,0.15);color:var(--blue)}
-.tab-badge{font-size:10px;padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace}
-.badge-free{background:rgba(184,240,132,0.1);color:var(--accent);border:1px solid rgba(184,240,132,0.2)}
-.badge-key{background:rgba(132,184,240,0.1);color:var(--blue);border:1px solid rgba(132,184,240,0.2)}
-.key-indicator{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:'DM Mono',monospace}
-.key-indicator .dot{width:5px;height:5px}
+.stab{display:flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.stab:first-child{border-radius:var(--radius-lg) 0 0 0;border-right:none}
+.stab:last-child{border-radius:0 var(--radius-lg) 0 0}
+.stab.active{background:var(--bg2);color:var(--text);border-bottom-color:var(--bg2)}
+.stab:not(.active):hover{color:var(--text);background:rgba(255,255,255,0.02)}
+.ticon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.ti-f{background:rgba(184,240,132,0.15);color:var(--accent)}
+.ti-p{background:rgba(132,184,240,0.15);color:var(--blue)}
+.tbadge{font-size:10px;padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace}
+.tb-f{background:rgba(184,240,132,0.1);color:var(--accent);border:1px solid rgba(184,240,132,0.2)}
+.tb-p{background:rgba(132,184,240,0.1);color:var(--blue);border:1px solid rgba(132,184,240,0.2)}
 
-/* ── PANEL ── */
+/* PANEL */
 .panel{background:var(--bg2);border:1px solid var(--border2);border-radius:0 var(--radius-lg) var(--radius-lg) var(--radius-lg);padding:1.5rem 2rem;max-width:1400px;margin:0 auto 1.5rem}
-.panel-desc{font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:1rem;max-width:700px}
-.panel-desc a{color:var(--accent);text-decoration:none}
-.panel-desc a:hover{text-decoration:underline}
-.panel-desc code{font-family:'DM Mono',monospace;font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px}
-.run-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);border:1px solid var(--accent);background:rgba(184,240,132,0.07);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;margin-right:8px}
-.run-btn:hover{background:rgba(184,240,132,0.14)}
+.pdesc{font-size:12px;color:var(--text3);line-height:1.7;margin-bottom:1rem;max-width:700px}
+.pdesc a{color:var(--accent);text-decoration:none}.pdesc a:hover{text-decoration:underline}
+.pdesc code{font-family:'DM Mono',monospace;font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px}
+.run-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:var(--radius);border:1px solid var(--accent);background:rgba(184,240,132,0.07);color:var(--accent);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.run-btn:hover{background:rgba(184,240,132,0.15)}
 .run-btn:disabled{opacity:.4;cursor:not-allowed}
-.change-key-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 12px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text3);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;transition:all .15s}
-.change-key-btn:hover{border-color:var(--border2);color:var(--text2)}
+.key-status-row{display:inline-flex;align-items:center;gap:6px;margin-left:10px;font-size:11px;font-family:'DM Mono',monospace;color:var(--text3)}
+.ks-dot{width:5px;height:5px;border-radius:50%;background:var(--accent)}
+.change-key{font-size:11px;color:var(--text3);background:transparent;border:none;cursor:pointer;text-decoration:underline;font-family:'DM Mono',monospace;padding:0}
+.change-key:hover{color:var(--text2)}
 
-.config-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1rem}
-.config-item label{display:block;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
-.config-select{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px 8px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none}
-.config-select:focus{border-color:var(--accent)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:1rem}
+.citem label{display:block;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.csel{width:100%;background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px 8px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none}
+.csel:focus{border-color:var(--accent)}
 
-/* ── PROGRESS ── */
-.progress-wrap{margin-bottom:1.5rem;display:none}
-.progress-wrap.show{display:block}
-.progress-label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:5px;display:flex;justify-content:space-between}
-.progress-track{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
-.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;width:0%}
+/* PROGRESS */
+.prog-wrap{margin-bottom:1.5rem;display:none}
+.prog-wrap.show{display:block}
+.prog-label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace;margin-bottom:5px;display:flex;justify-content:space-between}
+.prog-track{height:3px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s;width:0%}
 
-/* ── EXPIRY TABS ── */
-.expiry-section{margin-bottom:1.25rem}
-.section-label{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem}
-.expiry-tabs{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
-.expiry-tab{padding:4px 9px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text3);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap;text-align:center;line-height:1.3}
-.expiry-tab:hover,.expiry-tab-all:hover{border-color:var(--border2);color:var(--text2)}
-.expiry-tab.active,.expiry-tab-all.active{border-color:var(--accent);color:var(--accent);background:rgba(184,240,132,0.07)}
-.expiry-tab.weekly{border-style:dashed}
-.expiry-tab.monthly{font-weight:500}
-.expiry-tab-all{padding:4px 10px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s}
-.expiry-legend{display:flex;gap:12px;margin-top:.5rem}
-.legend-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
-.legend-dash{width:12px;height:0;border-top:1px dashed var(--text3)}
-.legend-solid{width:12px;height:0;border-top:1px solid var(--text3)}
+/* EXPIRY TABS */
+.exp-section{margin-bottom:1.25rem}
+.slabel{font-size:11px;color:var(--text3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.6rem}
+.exp-tabs{display:flex;gap:5px;flex-wrap:wrap}
+.exp-tab{padding:4px 9px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--text3);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s;white-space:nowrap;text-align:center;line-height:1.3}
+.exp-tab:hover,.exp-tab-all:hover{border-color:var(--border2);color:var(--text2)}
+.exp-tab.active,.exp-tab-all.active{border-color:var(--accent);color:var(--accent);background:rgba(184,240,132,0.07)}
+.exp-tab.weekly{border-style:dashed}
+.exp-tab.monthly{font-weight:500}
+.exp-tab-all{padding:4px 10px;border-radius:var(--radius);border:1px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Mono',monospace;font-size:11px;cursor:pointer;transition:all .15s}
+.exp-legend{display:flex;gap:12px;margin-top:.5rem}
+.leg-item{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--text3);font-family:'DM Mono',monospace}
+.leg-dash{width:12px;height:0;border-top:1px dashed var(--text3)}
+.leg-solid{width:12px;height:0;border-top:1px solid var(--text3)}
 
-/* ── METRICS ── */
+/* METRICS */
 .metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:1.25rem}
-.metric-card{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:.85rem 1rem}
-.metric-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem;font-family:'DM Mono',monospace}
-.metric-value{font-size:1.7rem;font-weight:500;font-family:'Fraunces',serif;line-height:1}
-.metric-value.green{color:var(--accent)}
-.metric-sub{font-size:10px;color:var(--text3);margin-top:.2rem}
+.mc{background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius-lg);padding:.85rem 1rem}
+.ml{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem;font-family:'DM Mono',monospace}
+.mv{font-size:1.7rem;font-weight:500;font-family:'Fraunces',serif;line-height:1}
+.mv.g{color:var(--accent)}
+.ms{font-size:10px;color:var(--text3);margin-top:.2rem}
 
-/* ── TABLE CONTROLS ── */
-.tbl-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:1rem}
-.ctrl-label{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace}
-.ctrl-select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:5px 8px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none}
-.ctrl-select:focus{border-color:var(--accent)}
-.vdivider{width:1px;height:18px;background:var(--border2)}
+/* TABLE CONTROLS */
+.tcontrols{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:1rem}
+.clabel{font-size:12px;color:var(--text3);font-family:'DM Mono',monospace}
+.csel2{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:5px 8px;border-radius:var(--radius);font-family:'DM Sans',sans-serif;font-size:12px;cursor:pointer;outline:none}
+.csel2:focus{border-color:var(--accent)}
+.vd{width:1px;height:18px;background:var(--border2)}
 
-/* ── TABLE ── */
-.table-wrap{overflow-x:auto}
+/* TABLE */
+.twrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse;min-width:960px}
 thead th{text-align:left;padding:9px 10px;font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;font-family:'DM Mono',monospace;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;transition:color .15s}
 thead th:hover{color:var(--text2)}
@@ -142,31 +141,30 @@ thead th.sorted{color:var(--accent)}
 tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
 tbody tr:hover{background:rgba(255,255,255,0.02)}
 tbody td{padding:10px;vertical-align:middle}
-.ticker-sym{font-family:'DM Mono',monospace;font-weight:500;font-size:14px}
+.tsym{font-family:'DM Mono',monospace;font-weight:500;font-size:14px}
 .rank{font-size:10px;color:var(--accent);margin-left:5px;font-family:'DM Mono',monospace}
 .mono{font-family:'DM Mono',monospace;font-size:13px}
 .muted{color:var(--text2)}.sm{font-size:12px}
-.up{color:var(--accent)}.dn{color:var(--red)}
-.iv-wrap{display:flex;align-items:center;gap:7px}
-.iv-track{width:44px;height:3px;background:var(--bg);border-radius:2px;overflow:hidden;flex-shrink:0}
-.iv-fill{height:100%;border-radius:2px}
+.cup{color:var(--accent)}.cdn{color:var(--red)}
+.ivwrap{display:flex;align-items:center;gap:7px}
+.ivtrack{width:44px;height:3px;background:var(--bg);border-radius:2px;overflow:hidden;flex-shrink:0}
+.ivfill{height:100%;border-radius:2px}
 .prem{font-family:'DM Mono',monospace;font-weight:500;color:var(--accent);font-size:13px}
-.yield-wrap{display:flex;flex-direction:column;gap:1px}
-.yield-main{font-family:'DM Mono',monospace;font-weight:500;font-size:13px}
+.ywrap{display:flex;flex-direction:column;gap:1px}
+.ymain{font-family:'DM Mono',monospace;font-weight:500;font-size:13px}
 .yg{color:var(--accent)}.yo{color:var(--amber)}.yl{color:var(--text2)}
-.yield-ann{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace}
-.exp-cell{font-family:'DM Mono',monospace;font-size:12px}
-.exp-date{color:var(--text2)}.exp-dte{font-size:10px;color:var(--text3);margin-top:1px}
-.exp-w{color:var(--amber);font-size:9px;margin-left:2px}
-.exp-m{color:var(--accent);font-size:9px;margin-left:2px}
-.msg-row td{text-align:center;padding:2.5rem;color:var(--text3);font-family:'DM Mono',monospace;font-size:13px;line-height:2.4}
-.src-chip{display:inline-block;font-size:9px;padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;margin-left:4px;vertical-align:middle}
-.chip-f{background:rgba(184,240,132,0.12);color:var(--accent)}
-.chip-p{background:rgba(132,184,240,0.12);color:var(--blue)}
+.yann{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace}
+.ecell{font-family:'DM Mono',monospace;font-size:12px}
+.edate{color:var(--text2)}.edte{font-size:10px;color:var(--text3);margin-top:1px}
+.ew{color:var(--amber);font-size:9px;margin-left:2px}.em{color:var(--accent);font-size:9px;margin-left:2px}
+.msgrow td{text-align:center;padding:2.5rem;color:var(--text3);font-family:'DM Mono',monospace;font-size:13px;line-height:2.4}
+.schip{display:inline-block;font-size:9px;padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;margin-left:4px;vertical-align:middle}
+.cf{background:rgba(184,240,132,0.12);color:var(--accent)}
+.cp{background:rgba(132,184,240,0.12);color:var(--blue)}
 
 .disclaimer{padding:1rem 2rem 0;max-width:1400px;margin:0 auto}
-.disc-inner{padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px;color:var(--text3);line-height:1.7}
-.disc-inner strong{color:var(--text2)}
+.disc{padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-lg);font-size:12px;color:var(--text3);line-height:1.7}
+.disc strong{color:var(--text2)}
 
 @media(max-width:768px){
   nav,.hero,.source-tabs,.panel,.disclaimer{padding-left:1rem;padding-right:1rem}
@@ -177,46 +175,48 @@ tbody td{padding:10px;vertical-align:middle}
 </head>
 <body>
 
-<!-- ── KEY MODALS ── -->
-
-<!-- Finnhub key modal -->
-<div class="modal-overlay" id="finnhubModal">
+<!-- FINNHUB MODAL -->
+<div class="modal-overlay" id="fhModal">
   <div class="modal">
     <h2>Finnhub API key</h2>
-    <p>
-      Finnhub is free, reliable, and supports browser requests directly — no proxy needed.<br><br>
-      1. Go to <a href="https://finnhub.io/register" target="_blank">finnhub.io/register</a><br>
-      2. Sign up free (no credit card)<br>
-      3. Copy your API key from the dashboard<br>
-      4. Paste it below
-    </p>
-    <input class="modal-input" id="finnhubKeyInput" type="password" placeholder="Paste your Finnhub API key..." autocomplete="off">
-    <div class="modal-err" id="finnhubKeyErr">Key cannot be empty.</div>
-    <div class="modal-actions">
-      <button class="modal-btn secondary" onclick="closeModal('finnhubModal')">Cancel</button>
-      <button class="modal-btn primary" onclick="saveFinnhubKey()">Save &amp; Run</button>
+    <div class="modal-sub">
+      Get a free key in 60 seconds — no credit card needed:
+      <ol>
+        <li>Go to <a href="https://finnhub.io/register" target="_blank">finnhub.io/register</a></li>
+        <li>Sign up with email</li>
+        <li>Copy the API key shown on the dashboard</li>
+        <li>Paste it below</li>
+      </ol>
     </div>
-    <div class="modal-note">Key is saved in your browser only — never sent anywhere except Finnhub.</div>
+    <input class="modal-input" id="fhKeyIn" type="password" placeholder="Paste Finnhub API key here..." autocomplete="off" onkeydown="if(event.key==='Enter') saveFHKey()">
+    <div class="modal-err" id="fhErr"></div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('fhModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="saveFHKey()">Save &amp; Run</button>
+    </div>
+    <div class="modal-note">Stored in your browser only. Never sent anywhere except Finnhub.</div>
   </div>
 </div>
 
-<!-- Polygon key modal -->
-<div class="modal-overlay" id="polyModal">
+<!-- POLYGON MODAL -->
+<div class="modal-overlay" id="pkModal">
   <div class="modal">
     <h2>Polygon.io API key</h2>
-    <p>
-      Polygon free tier gives access to <code>/v2/aggs</code> (previous day OHLCV) — exactly what this screener uses.<br><br>
-      1. Go to <a href="https://polygon.io/dashboard/api-keys" target="_blank">polygon.io/dashboard/api-keys</a><br>
-      2. Copy your API key<br>
-      3. Paste it below
-    </p>
-    <input class="modal-input" id="polyKeyInput" type="password" placeholder="Paste your Polygon API key..." autocomplete="off">
-    <div class="modal-err" id="polyKeyErr">Key cannot be empty.</div>
-    <div class="modal-actions">
-      <button class="modal-btn secondary" onclick="closeModal('polyModal')">Cancel</button>
-      <button class="modal-btn primary" onclick="savePolyKey()">Save &amp; Run</button>
+    <div class="modal-sub">
+      The free Polygon plan includes <code>/v2/aggs</code> — exactly what this screener uses:
+      <ol>
+        <li>Go to <a href="https://polygon.io/dashboard/api-keys" target="_blank">polygon.io/dashboard/api-keys</a></li>
+        <li>Copy your API key</li>
+        <li>Paste it below</li>
+      </ol>
     </div>
-    <div class="modal-note">Key is saved in your browser only — never hardcoded in any file.</div>
+    <input class="modal-input" id="pkKeyIn" type="password" placeholder="Paste Polygon API key here..." autocomplete="off" onkeydown="if(event.key==='Enter') savePKKey()">
+    <div class="modal-err" id="pkErr"></div>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="closeModal('pkModal')">Cancel</button>
+      <button class="modal-btn primary" onclick="savePKKey()">Save &amp; Run</button>
+    </div>
+    <div class="modal-note">Stored in your browser only. Never hardcoded in any file.</div>
   </div>
 </div>
 
@@ -224,7 +224,7 @@ tbody td{padding:10px;vertical-align:middle}
   <div class="logo">Put<span>Flow</span></div>
   <div class="nav-right">
     <span id="last-updated">Choose a source below</span>
-    <div class="status-dot" id="sdot"></div>
+    <div class="sdot" id="sdot"></div>
     <button class="refresh-btn" id="refreshBtn" onclick="runActive()">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
       Refresh
@@ -234,200 +234,155 @@ tbody td{padding:10px;vertical-align:middle}
 
 <div class="hero">
   <h1>Cash-secured put<br><em>screener</em></h1>
-  <p>Two live data sources. Finnhub screens the market dynamically with direct API calls — no proxy needed. Polygon uses your free key with a 120-stock high-IV universe. Both ask for your key at runtime.</p>
+  <p>Two live data sources with direct API calls — no CORS proxy needed. Finnhub and Polygon both allow browser requests on their free tiers. Your API keys are asked at runtime and stored only in your browser.</p>
   <div class="tag-row">
-    <div class="tag"><span class="dot dot-green"></span>Finnhub — dynamic, direct API, no proxy</div>
-    <div class="tag"><span class="dot dot-blue"></span>Polygon — 120-stock universe, free key</div>
-    <div class="tag"><span class="dot dot-amber"></span>All expiries · 90 days</div>
-    <div class="tag"><span class="dot dot-red"></span>Keys saved in browser only</div>
+    <div class="tag"><span class="dot dot-g"></span>Finnhub — direct API, real-time, free key</div>
+    <div class="tag"><span class="dot dot-b"></span>Polygon — direct API, 15-min delayed, free key</div>
+    <div class="tag"><span class="dot dot-a"></span>120-stock high-IV universe, auto-filtered</div>
+    <div class="tag"><span class="dot dot-r"></span>All expiries · next 90 days</div>
   </div>
 </div>
 
 <div class="source-tabs">
-  <button class="source-tab active" id="tab-finn" onclick="switchSource('finn')">
-    <div class="tab-icon icon-f">F</div>
+  <button class="stab active" id="tab-fh" onclick="switchSource('fh')">
+    <div class="ticon ti-f">F</div>
     Finnhub
-    <span class="tab-badge badge-free">Dynamic</span>
+    <span class="tbadge tb-f">Real-time</span>
   </button>
-  <button class="source-tab" id="tab-poly" onclick="switchSource('poly')">
-    <div class="tab-icon icon-p">P</div>
+  <button class="stab" id="tab-pk" onclick="switchSource('pk')">
+    <div class="ticon ti-p">P</div>
     Polygon.io
-    <span class="tab-badge badge-key">Free key</span>
+    <span class="tbadge tb-p">15-min delayed</span>
   </button>
 </div>
 
 <div class="panel">
 
   <!-- FINNHUB PANEL -->
-  <div id="panel-finn">
-    <p class="panel-desc">
-      Uses <a href="https://finnhub.io" target="_blank">Finnhub.io</a>'s free API — supports direct browser requests so no CORS proxy is needed.
-      Screens a broad universe of US stocks, filters server-side by price and volume, estimates IV from daily price action.
-      Free plan: 60 API calls/minute — plenty for this screener.
+  <div id="panel-fh">
+    <p class="pdesc">
+      Uses <a href="https://finnhub.io" target="_blank">Finnhub</a>'s <code>/quote</code> endpoint — allows direct browser requests (CORS enabled).
+      Screens a 120-stock high-IV universe, fetches live quotes in batches of 10, and filters dynamically.
+      Free plan: 60 calls/min. Real-time prices during market hours.
     </p>
-    <div class="config-grid">
-      <div class="config-item">
-        <label>Max price</label>
-        <select class="config-select" id="f-maxPrice">
-          <option value="30" selected>Under $30</option>
-          <option value="20">Under $20</option>
-          <option value="10">Under $10</option>
-          <option value="5">Under $5</option>
-        </select>
+    <div class="cgrid">
+      <div class="citem"><label>Max price</label>
+        <select class="csel" id="f-mp"><option value="30" selected>Under $30</option><option value="20">Under $20</option><option value="10">Under $10</option><option value="5">Under $5</option></select>
       </div>
-      <div class="config-item">
-        <label>Min volume</label>
-        <select class="config-select" id="f-minVol">
-          <option value="500000" selected>500K+</option>
-          <option value="1000000">1M+</option>
-          <option value="200000">200K+</option>
-        </select>
+      <div class="citem"><label>Min volume</label>
+        <select class="csel" id="f-mv"><option value="200000" selected>200K+</option><option value="500000">500K+</option><option value="1000000">1M+</option></select>
       </div>
-      <div class="config-item">
-        <label>Min est. IV</label>
-        <select class="config-select" id="f-minIV">
-          <option value="40" selected>40%+</option>
-          <option value="60">60%+</option>
-          <option value="80">80%+</option>
-        </select>
+      <div class="citem"><label>Min est. IV</label>
+        <select class="csel" id="f-iv"><option value="35" selected>35%+</option><option value="50">50%+</option><option value="70">70%+</option></select>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <button class="run-btn" id="finnRunBtn" onclick="startFinn()">
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+      <button class="run-btn" id="fhRunBtn" onclick="startFH()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         Run Finnhub Screener
       </button>
-      <span id="finnKeyIndicator" class="key-indicator" style="display:none">
-        <span class="dot" id="finnKeyDot"></span>
-        <span id="finnKeyLabel"></span>
-        <button class="change-key-btn" onclick="openModal('finnhubModal')" style="margin-left:4px;padding:3px 8px;font-size:11px">Change key</button>
+      <span id="fhKS" class="key-status-row" style="display:none">
+        <span class="ks-dot"></span><span>Key saved</span>
+        <button class="change-key" onclick="openModal('fhModal')">(change)</button>
       </span>
     </div>
   </div>
 
   <!-- POLYGON PANEL -->
-  <div id="panel-poly" style="display:none">
-    <p class="panel-desc">
-      Seeds from a <strong>120-stock high-IV universe</strong> across crypto, biotech, EV, energy, mining, and fintech.
-      Each run fetches live data via <code>/v2/aggs</code> (free tier endpoint) and filters dynamically.
-      Your key is stored in your browser — never in any file.
+  <div id="panel-pk" style="display:none">
+    <p class="pdesc">
+      Uses Polygon's <code>/v2/aggs/ticker/{t}/prev</code> endpoint — available on the free plan (CORS enabled).
+      Same 120-stock high-IV seed universe, fetched and filtered live each run.
+      Free plan: 5 calls/min — screener batches requests with small delays to stay within limits.
     </p>
-    <div class="config-grid">
-      <div class="config-item">
-        <label>Max price</label>
-        <select class="config-select" id="p-maxPrice">
-          <option value="30" selected>Under $30</option>
-          <option value="20">Under $20</option>
-          <option value="10">Under $10</option>
-          <option value="5">Under $5</option>
-        </select>
+    <div class="cgrid">
+      <div class="citem"><label>Max price</label>
+        <select class="csel" id="p-mp"><option value="30" selected>Under $30</option><option value="20">Under $20</option><option value="10">Under $10</option><option value="5">Under $5</option></select>
       </div>
-      <div class="config-item">
-        <label>Min volume</label>
-        <select class="config-select" id="p-minVol">
-          <option value="300000" selected>300K+</option>
-          <option value="500000">500K+</option>
-          <option value="1000000">1M+</option>
-        </select>
+      <div class="citem"><label>Min volume</label>
+        <select class="csel" id="p-mv"><option value="200000" selected>200K+</option><option value="500000">500K+</option><option value="1000000">1M+</option></select>
       </div>
-      <div class="config-item">
-        <label>Min est. IV</label>
-        <select class="config-select" id="p-minIV">
-          <option value="40" selected>40%+</option>
-          <option value="60">60%+</option>
-          <option value="80">80%+</option>
-        </select>
+      <div class="citem"><label>Min est. IV</label>
+        <select class="csel" id="p-iv"><option value="35" selected>35%+</option><option value="50">50%+</option><option value="70">70%+</option></select>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-      <button class="run-btn" id="polyRunBtn" onclick="startPoly()">
+    <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+      <button class="run-btn" id="pkRunBtn" onclick="startPK()">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
         Run Polygon Screener
       </button>
-      <span id="polyKeyIndicator" class="key-indicator" style="display:none">
-        <span class="dot" id="polyKeyDot"></span>
-        <span id="polyKeyLabel"></span>
-        <button class="change-key-btn" onclick="openModal('polyModal')" style="margin-left:4px;padding:3px 8px;font-size:11px">Change key</button>
+      <span id="pkKS" class="key-status-row" style="display:none">
+        <span class="ks-dot"></span><span>Key saved</span>
+        <button class="change-key" onclick="openModal('pkModal')">(change)</button>
       </span>
     </div>
   </div>
 
   <!-- SHARED OUTPUT -->
   <div style="margin-top:1.5rem">
-    <div class="progress-wrap" id="progressWrap">
-      <div class="progress-label">
-        <span id="progressLabel">Starting...</span>
-        <span id="progressCount" style="font-size:11px;color:var(--text3);font-family:'DM Mono',monospace"></span>
+    <div class="prog-wrap" id="progWrap">
+      <div class="prog-label">
+        <span id="progLabel">Starting...</span>
+        <span id="progCount" style="font-size:11px;color:var(--text3);font-family:'DM Mono',monospace"></span>
       </div>
-      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
     </div>
 
     <div id="msgArea" style="display:none;padding:1.5rem 0;text-align:center;font-family:'DM Mono',monospace;font-size:13px;color:var(--text3);line-height:2.4"></div>
 
     <div id="resultsArea" style="display:none">
-      <div class="expiry-section">
-        <div class="section-label">Expiration date</div>
-        <div class="expiry-tabs" id="expiryTabs">
-          <button class="expiry-tab-all active" onclick="setExpiry('all',this)">All dates</button>
-        </div>
-        <div class="expiry-legend">
-          <div class="legend-item"><div class="legend-solid"></div>Monthly</div>
-          <div class="legend-item"><div class="legend-dash"></div>Weekly</div>
+      <div class="exp-section">
+        <div class="slabel">Expiration date</div>
+        <div class="exp-tabs" id="expTabs"><button class="exp-tab-all active" onclick="setExp('all',this)">All dates</button></div>
+        <div class="exp-legend">
+          <div class="leg-item"><div class="leg-solid"></div>Monthly</div>
+          <div class="leg-item"><div class="leg-dash"></div>Weekly</div>
         </div>
       </div>
 
       <div class="metrics">
-        <div class="metric-card"><div class="metric-label">Opportunities</div><div class="metric-value" id="m1">—</div><div class="metric-sub">pass filters</div></div>
-        <div class="metric-card"><div class="metric-label">Avg yield</div><div class="metric-value green" id="m2">—</div><div class="metric-sub">per cycle</div></div>
-        <div class="metric-card"><div class="metric-label">Avg est. IV</div><div class="metric-value" id="m3">—</div><div class="metric-sub">implied vol</div></div>
-        <div class="metric-card"><div class="metric-label">Hit 10%</div><div class="metric-value green" id="m4">—</div><div class="metric-sub" id="m4sub"></div></div>
+        <div class="mc"><div class="ml">Opportunities</div><div class="mv" id="m1">—</div><div class="ms">pass filters</div></div>
+        <div class="mc"><div class="ml">Avg yield</div><div class="mv g" id="m2">—</div><div class="ms">per cycle</div></div>
+        <div class="mc"><div class="ml">Avg est. IV</div><div class="mv" id="m3">—</div><div class="ms">implied vol</div></div>
+        <div class="mc"><div class="ml">Hit 10%</div><div class="mv g" id="m4">—</div><div class="ms" id="m4s"></div></div>
       </div>
 
-      <div class="tbl-controls">
-        <span class="ctrl-label">Sort</span>
-        <select class="ctrl-select" id="sortSel" onchange="sortBy(this.value)">
-          <option value="yield">Premium yield</option>
-          <option value="iv">Impl. vol</option>
-          <option value="price">Stock price</option>
-          <option value="premium">Premium $</option>
-          <option value="dte">DTE</option>
-          <option value="breakeven">Breakeven</option>
+      <div class="tcontrols">
+        <span class="clabel">Sort</span>
+        <select class="csel2" id="sortSel" onchange="sortBy(this.value)">
+          <option value="yield">Premium yield</option><option value="iv">Impl. vol</option>
+          <option value="price">Stock price</option><option value="premium">Premium $</option>
+          <option value="dte">DTE</option><option value="breakeven">Breakeven</option>
         </select>
-        <div class="vdivider"></div>
-        <span class="ctrl-label">Max price</span>
-        <select class="ctrl-select" id="priceSel" onchange="render()">
-          <option value="30">Under $30</option>
-          <option value="20">Under $20</option>
-          <option value="10">Under $10</option>
-          <option value="5">Under $5</option>
+        <div class="vd"></div>
+        <span class="clabel">Max price</span>
+        <select class="csel2" id="priceF" onchange="render()">
+          <option value="30">Under $30</option><option value="20">Under $20</option>
+          <option value="10">Under $10</option><option value="5">Under $5</option>
         </select>
-        <div class="vdivider"></div>
-        <span class="ctrl-label">Min yield</span>
-        <select class="ctrl-select" id="yieldSel" onchange="render()">
-          <option value="5">Any (&gt;5%)</option>
-          <option value="10" selected>10%+</option>
-          <option value="15">15%+</option>
-          <option value="20">20%+</option>
+        <div class="vd"></div>
+        <span class="clabel">Min yield</span>
+        <select class="csel2" id="yieldF" onchange="render()">
+          <option value="5">Any (&gt;5%)</option><option value="10" selected>10%+</option>
+          <option value="15">15%+</option><option value="20">20%+</option>
         </select>
       </div>
 
-      <div class="table-wrap">
+      <div class="twrap">
         <table>
-          <thead>
-            <tr>
-              <th onclick="sortBy('ticker')" id="th-ticker">Ticker</th>
-              <th onclick="sortBy('price')" id="th-price">Price</th>
-              <th onclick="sortBy('change')" id="th-change">Day chg</th>
-              <th onclick="sortBy('iv')" id="th-iv">Est. IV</th>
-              <th onclick="sortBy('strike')" id="th-strike">Strike</th>
-              <th onclick="sortBy('dte')" id="th-dte">Expiry / DTE</th>
-              <th onclick="sortBy('premium')" id="th-premium">Premium</th>
-              <th onclick="sortBy('capital')" id="th-capital">Capital</th>
-              <th onclick="sortBy('yield')" id="th-yield">Yield</th>
-              <th onclick="sortBy('breakeven')" id="th-breakeven">Breakeven</th>
-              <th>Source</th>
-            </tr>
-          </thead>
+          <thead><tr>
+            <th onclick="sortBy('ticker')" id="th-ticker">Ticker</th>
+            <th onclick="sortBy('price')" id="th-price">Price</th>
+            <th onclick="sortBy('change')" id="th-change">Day chg</th>
+            <th onclick="sortBy('iv')" id="th-iv">Est. IV</th>
+            <th onclick="sortBy('strike')" id="th-strike">Strike</th>
+            <th onclick="sortBy('dte')" id="th-dte">Expiry / DTE</th>
+            <th onclick="sortBy('premium')" id="th-premium">Premium</th>
+            <th onclick="sortBy('capital')" id="th-capital">Capital</th>
+            <th onclick="sortBy('yield')" id="th-yield">Yield</th>
+            <th onclick="sortBy('breakeven')" id="th-breakeven">Breakeven</th>
+            <th>Source</th>
+          </tr></thead>
           <tbody id="tbody"></tbody>
         </table>
       </div>
@@ -436,16 +391,16 @@ tbody td{padding:10px;vertical-align:middle}
 </div>
 
 <div class="disclaimer">
-  <div class="disc-inner">
-    <strong>Finnhub tab:</strong> Uses Finnhub's stock symbols API + quote endpoint directly in the browser (CORS allowed). Free plan: 60 calls/min. Screens ~200 high-volume US stocks per run. &nbsp;|&nbsp;
-    <strong>Polygon tab:</strong> 120-stock high-IV seed universe filtered live via <code style="font-family:'DM Mono',monospace;font-size:11px">/v2/aggs</code> (free tier). 15-min delayed. &nbsp;|&nbsp;
-    All API keys stored in browser localStorage only. IV estimated from day range + return. Premium via Black-Scholes at 8% OTM. <strong>Not financial advice.</strong>
+  <div class="disc">
+    <strong>Finnhub tab:</strong> Calls <code style="font-family:'DM Mono',monospace;font-size:11px">finnhub.io/api/v1/quote</code> per ticker — CORS enabled, real-time. Free: 60 calls/min. &nbsp;|&nbsp;
+    <strong>Polygon tab:</strong> Calls <code style="font-family:'DM Mono',monospace;font-size:11px">api.polygon.io/v2/aggs/{t}/prev</code> — CORS enabled, 15-min delayed. Free: 5 calls/min (batched with delays). &nbsp;|&nbsp;
+    Both use a shared 120-stock high-IV seed universe. IV estimated from day range + return. Premium via Black-Scholes at 8% OTM. Keys stored in browser localStorage only. <strong>Not financial advice.</strong>
   </div>
 </div>
 
 <script>
-// ── 120-stock Polygon seed universe ───────────────────
-const POLY_UNIVERSE=[
+// ── 120-stock seed universe ───────────────────────────
+const UNIVERSE=[
   "SOFI","MARA","RIOT","CLSK","CIFR","BITF","HUT","MIGI",
   "SPWR","NOVA","PLUG","FCEL","BLNK","CHPT","EVGO","WKHS",
   "NKLA","GOEV","RIDE","HYLN","FFIE","SOLO","AYRO","MULN",
@@ -464,347 +419,278 @@ const POLY_UNIVERSE=[
 ];
 
 // ── State ─────────────────────────────────────────────
-let allRows=[], expiryDates=[], selectedExp="all";
-let sortKey="yield", sortDir=-1;
-let activeSource="finn", isRunning=false;
-let pendingAction=null; // which run to trigger after modal save
-
+let allRows=[],expDates=[],selExp="all";
+let sortKey="yield",sortDir=-1;
+let activeSrc="fh",isRunning=false;
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
-// ── Modal management ──────────────────────────────────
-function openModal(id, action=null){
-  pendingAction=action;
-  document.getElementById(id).classList.add("show");
-  // Pre-fill if key exists
-  if(id==="finnhubModal"){
-    const k=localStorage.getItem("pf_fh")||"";
-    document.getElementById("finnhubKeyInput").value=k;
-    document.getElementById("finnhubKeyErr").style.display="none";
-  }
-  if(id==="polyModal"){
-    const k=localStorage.getItem("pf_pk")||"";
-    document.getElementById("polyKeyInput").value=k;
-    document.getElementById("polyKeyErr").style.display="none";
-  }
+// ── Modal ─────────────────────────────────────────────
+function openModal(id){
+  const modal=document.getElementById(id);
+  modal.classList.add("show");
+  // Pre-fill saved key
+  const inp=modal.querySelector(".modal-input");
+  const stored=localStorage.getItem(id==="fhModal"?"pf_fh":"pf_pk")||"";
+  inp.value=stored;
+  modal.querySelector(".modal-err").textContent="";
+  setTimeout(()=>inp.focus(),100);
 }
 function closeModal(id){ document.getElementById(id).classList.remove("show"); }
+document.querySelectorAll(".modal-overlay").forEach(el=>el.addEventListener("click",e=>{ if(e.target===el) el.classList.remove("show"); }));
 
-// Close modal on overlay click
-document.querySelectorAll(".modal-overlay").forEach(el=>{
-  el.addEventListener("click",e=>{ if(e.target===el) el.classList.remove("show"); });
-});
-
-// ── Key save handlers ─────────────────────────────────
-function saveFinnhubKey(){
-  const k=document.getElementById("finnhubKeyInput").value.trim();
-  if(!k){ document.getElementById("finnhubKeyErr").style.display="block"; return; }
+function saveFHKey(){
+  const k=document.getElementById("fhKeyIn").value.trim();
+  if(!k){ document.getElementById("fhErr").textContent="Key cannot be empty."; return; }
   localStorage.setItem("pf_fh",k);
-  closeModal("finnhubModal");
-  updateKeyIndicator("finn");
-  runFinn(); // run immediately after saving
+  closeModal("fhModal");
+  updateKS("fh");
+  runFH();
 }
-
-function savePolyKey(){
-  const k=document.getElementById("polyKeyInput").value.trim();
-  if(!k){ document.getElementById("polyKeyErr").style.display="block"; return; }
+function savePKKey(){
+  const k=document.getElementById("pkKeyIn").value.trim();
+  if(!k){ document.getElementById("pkErr").textContent="Key cannot be empty."; return; }
   localStorage.setItem("pf_pk",k);
-  closeModal("polyModal");
-  updateKeyIndicator("poly");
-  runPoly(); // run immediately after saving
+  closeModal("pkModal");
+  updateKS("pk");
+  runPK();
 }
-
-function getKey(src){ return localStorage.getItem(src==="finn"?"pf_fh":"pf_pk")||""; }
-
-function updateKeyIndicator(src){
+function getKey(src){ return localStorage.getItem(src==="fh"?"pf_fh":"pf_pk")||""; }
+function clearKey(src){ localStorage.removeItem(src==="fh"?"pf_fh":"pf_pk"); updateKS(src); }
+function updateKS(src){
   const k=getKey(src);
-  if(src==="finn"){
-    const el=document.getElementById("finnKeyIndicator");
-    if(!k){ el.style.display="none"; return; }
-    el.style.display="inline-flex";
-    document.getElementById("finnKeyDot").style.background="var(--accent)";
-    document.getElementById("finnKeyLabel").textContent="Key saved ✓";
-    document.getElementById("finnKeyLabel").style.color="var(--accent)";
-  } else {
-    const el=document.getElementById("polyKeyIndicator");
-    if(!k){ el.style.display="none"; return; }
-    el.style.display="inline-flex";
-    document.getElementById("polyKeyDot").style.background="var(--accent)";
-    document.getElementById("polyKeyLabel").textContent="Key saved ✓";
-    document.getElementById("polyKeyLabel").style.color="var(--accent)";
-  }
-}
-
-// ── Start functions (check key first) ─────────────────
-function startFinn(){
-  const k=getKey("finn");
-  if(!k){ openModal("finnhubModal"); return; }
-  runFinn();
-}
-function startPoly(){
-  const k=getKey("poly");
-  if(!k){ openModal("polyModal"); return; }
-  runPoly();
+  const el=document.getElementById(src==="fh"?"fhKS":"pkKS");
+  el.style.display=k?"inline-flex":"none";
 }
 
 // ── Source switching ──────────────────────────────────
 function switchSource(src){
-  activeSource=src;
-  document.getElementById("tab-finn").classList.toggle("active",src==="finn");
-  document.getElementById("tab-poly").classList.toggle("active",src==="poly");
-  document.getElementById("panel-finn").style.display=src==="finn"?"block":"none";
-  document.getElementById("panel-poly").style.display=src==="poly"?"block":"none";
-  resetOutput();
+  activeSrc=src;
+  document.getElementById("tab-fh").classList.toggle("active",src==="fh");
+  document.getElementById("tab-pk").classList.toggle("active",src==="pk");
+  document.getElementById("panel-fh").style.display=src==="fh"?"block":"none";
+  document.getElementById("panel-pk").style.display=src==="pk"?"block":"none";
+  resetOut();
 }
-function runActive(){ activeSource==="finn"?startFinn():startPoly(); }
+function runActive(){ activeSrc==="fh"?startFH():startPK(); }
+function startFH(){ getKey("fh")?runFH():openModal("fhModal"); }
+function startPK(){ getKey("pk")?runPK():openModal("pkModal"); }
+function setBtns(d){ ["fhRunBtn","pkRunBtn","refreshBtn"].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=d; }); }
 
-// ── Date helpers ──────────────────────────────────────
-function toDateStr(d){ return d.toISOString().split("T")[0]; }
+// ── Dates ─────────────────────────────────────────────
 function addDays(d,n){ const r=new Date(d); r.setDate(r.getDate()+n); return r; }
+function toDS(d){ return d.toISOString().split("T")[0]; }
 function calcDTE(s){ const t=new Date(); t.setHours(0,0,0,0); return Math.round((new Date(s+"T12:00:00")-t)/86400000); }
-function isMonthly(s){ const d=new Date(s+"T12:00:00"); if(d.getDay()!==5) return false; const day=d.getDate(); return day>=15&&day<=21; }
-function fmtDate(s){ return new Date(s+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}); }
-function buildExpiryCalendar(){
-  const dates=[],today=new Date(); today.setHours(0,0,0,0);
-  let d=new Date(today); while(d.getDay()!==5) d=addDays(d,1);
-  while(true){ const dte=Math.round((d-today)/86400000); if(dte>90) break; if(dte>0){ const s=toDateStr(d); dates.push({date:s,dte,isMonthly:isMonthly(s),display:fmtDate(s)}); } d=addDays(d,7); }
+function isMonthly(s){ const d=new Date(s+"T12:00:00"); if(d.getDay()!==5) return false; const n=d.getDate(); return n>=15&&n<=21; }
+function fmtD(s){ return new Date(s+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric"}); }
+function buildCal(){
+  const dates=[],t=new Date(); t.setHours(0,0,0,0);
+  let d=new Date(t); while(d.getDay()!==5) d=addDays(d,1);
+  for(;;){ const dte=Math.round((d-t)/86400000); if(dte>90) break; if(dte>0){ const s=toDS(d); dates.push({date:s,dte,isMonthly:isMonthly(s),display:fmtD(s)}); } d=addDays(d,7); }
   return dates;
 }
 
 // ── Black-Scholes ─────────────────────────────────────
-function ncdf(x){ const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911; const s=x<0?-1:1; x=Math.abs(x); const t=1/(1+p*x); return 0.5*(1+s*(1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x))); }
-function calcPremium(price,iv,dte){ if(dte<=0||!price||!iv) return null; const strike=Math.round(price*0.92*20)/20; const T=dte/365,sig=iv/100,sq=Math.sqrt(T); const d1=(Math.log(price/strike)+0.5*sig*sig*T)/(sig*sq); const prem=Math.max(0.01,strike*ncdf(-(d1-sig*sq))*Math.exp(-0.04*T)-price*ncdf(-d1))*0.88; const cap=+(strike*100).toFixed(2); const premD=Math.round(prem*100); const yld=+(premD/cap*100).toFixed(1); return{strike:+strike.toFixed(2),capital:cap,premium:premD,yield:yld,annYield:Math.round(yld*365/dte),breakeven:+(strike-prem).toFixed(2)}; }
-function estIV(h,l,c,prev){ if(!prev||prev<=0) return 65; return Math.round(Math.max(15,Math.min(300,((h-l)/c*0.6+Math.abs((c-prev)/prev)*0.4)*Math.sqrt(252)*100))); }
+function ncdf(x){ const p=0.3275911,a=[0.254829592,-0.284496736,1.421413741,-1.453152027,1.061405429]; const s=x<0?-1:1; x=Math.abs(x); const t=1/(1+p*x); return 0.5*(1+s*(1-a.reduce((acc,ai,i)=>acc*t+ai*(i===0?t:1),0)*t*Math.exp(-x*x))); }
+function ncdf2(x){ const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911; const s=x<0?-1:1; x=Math.abs(x); const t=1/(1+p*x); return 0.5*(1+s*(1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x))); }
+function calcPrem(price,iv,dte){ if(dte<=0||!price||!iv) return null; const K=Math.round(price*0.92*20)/20,T=dte/365,sig=iv/100,sq=Math.sqrt(T),d1=(Math.log(price/K)+0.5*sig*sig*T)/(sig*sq); const prem=Math.max(0.01,K*ncdf2(-(d1-sig*sq))*Math.exp(-0.04*T)-price*ncdf2(-d1))*0.88; const cap=+(K*100).toFixed(2),premD=Math.round(prem*100),yld=+(premD/cap*100).toFixed(1); return{strike:+K.toFixed(2),capital:cap,premium:premD,yield:yld,annYield:Math.round(yld*365/dte),breakeven:+(K-prem).toFixed(2)}; }
+function estIV(h,l,c,p){ if(!p||p<=0) return 65; return Math.round(Math.max(15,Math.min(300,((h-l)/c*0.6+Math.abs((c-p)/p)*0.4)*Math.sqrt(252)*100))); }
 
-// ── UI helpers ────────────────────────────────────────
-function setProgress(pct,label,count=""){ document.getElementById("progressFill").style.width=Math.min(100,pct)+"%"; document.getElementById("progressLabel").textContent=label; document.getElementById("progressCount").textContent=count; }
-function showProgress(){ document.getElementById("progressWrap").classList.add("show"); }
-function hideProgress(){ setTimeout(()=>document.getElementById("progressWrap").classList.remove("show"),1500); }
+// ── UI ────────────────────────────────────────────────
+function setProg(pct,label,count=""){ document.getElementById("progFill").style.width=Math.min(100,pct)+"%"; document.getElementById("progLabel").textContent=label; document.getElementById("progCount").textContent=count; }
+function showProg(){ document.getElementById("progWrap").classList.add("show"); }
+function hideProg(){ setTimeout(()=>document.getElementById("progWrap").classList.remove("show"),1500); }
 function showMsg(html){ document.getElementById("msgArea").innerHTML=html; document.getElementById("msgArea").style.display="block"; document.getElementById("resultsArea").style.display="none"; }
-function showResults(){ document.getElementById("resultsArea").style.display="block"; document.getElementById("msgArea").style.display="none"; }
-function resetOutput(){ document.getElementById("progressWrap").classList.remove("show"); document.getElementById("msgArea").style.display="none"; document.getElementById("resultsArea").style.display="none"; allRows=[]; setDot(""); document.getElementById("last-updated").textContent="Choose a source below"; }
-function setDot(s){ document.getElementById("sdot").className="status-dot"+(s?" "+s:""); }
-function setBtns(disabled){ ["finnRunBtn","polyRunBtn","refreshBtn"].forEach(id=>{ const el=document.getElementById(id); if(el) el.disabled=disabled; }); }
+function showRes(){ document.getElementById("resultsArea").style.display="block"; document.getElementById("msgArea").style.display="none"; }
+function resetOut(){ document.getElementById("progWrap").classList.remove("show"); document.getElementById("msgArea").style.display="none"; document.getElementById("resultsArea").style.display="none"; allRows=[]; setDot(""); document.getElementById("last-updated").textContent="Choose a source below"; }
+function setDot(s){ document.getElementById("sdot").className="sdot"+(s?" "+s:""); }
 
-function buildExpiryTabs(dates){
-  expiryDates=dates;
-  const c=document.getElementById("expiryTabs");
-  c.innerHTML=`<button class="expiry-tab-all active" onclick="setExpiry('all',this)">All dates</button>`;
-  dates.forEach(exp=>{ const b=document.createElement("button"); b.className="expiry-tab "+(exp.isMonthly?"monthly":"weekly"); b.innerHTML=`${exp.display}<br><span style="font-size:9px;opacity:.5">${exp.dte}d</span>`; b.onclick=()=>setExpiry(exp.date,b); c.appendChild(b); });
+function buildExpTabs(dates){
+  expDates=dates;
+  const c=document.getElementById("expTabs");
+  c.innerHTML=`<button class="exp-tab-all active" onclick="setExp('all',this)">All dates</button>`;
+  dates.forEach(e=>{ const b=document.createElement("button"); b.className="exp-tab "+(e.isMonthly?"monthly":"weekly"); b.innerHTML=`${e.display}<br><span style="font-size:9px;opacity:.5">${e.dte}d</span>`; b.onclick=()=>setExp(e.date,b); c.appendChild(b); });
 }
-function setExpiry(date,btn){ selectedExp=date; document.querySelectorAll(".expiry-tab,.expiry-tab-all").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); render(); }
-function buildRows(stocks,dates,src){ const rows=[]; for(const s of stocks) for(const exp of dates){ const opt=calcPremium(s.price,s.iv,exp.dte); if(!opt||opt.yield<5) continue; rows.push({...s,...opt,expDate:exp.date,dte:exp.dte,expDisplay:exp.display,isMonthly:exp.isMonthly,source:src}); } return rows; }
+function setExp(date,btn){ selExp=date; document.querySelectorAll(".exp-tab,.exp-tab-all").forEach(b=>b.classList.remove("active")); btn.classList.add("active"); render(); }
 
-// ═══════════════════════════════════════════════════════
-//  FINNHUB — direct browser API, no proxy needed
-//  Free plan: 60 calls/min
-//  Strategy: fetch US stock symbols, batch quote calls
-// ═══════════════════════════════════════════════════════
-async function runFinn(){
+function buildRows(stocks,dates,src){
+  const rows=[];
+  for(const s of stocks) for(const e of dates){ const opt=calcPrem(s.price,s.iv,e.dte); if(!opt||opt.yield<5) continue; rows.push({...s,...opt,expDate:e.date,dte:e.dte,expDisplay:e.display,isMonthly:e.isMonthly,source:src}); }
+  return rows;
+}
+
+// ══════════════════════════════════════════════════════
+//  FINNHUB — /api/v1/quote per ticker (CORS allowed ✓)
+//  Free: 60 calls/min → batch 10 at a time, 1s delay
+// ══════════════════════════════════════════════════════
+async function runFH(){
   if(isRunning) return;
-  const key=getKey("finn");
-  if(!key){ openModal("finnhubModal"); return; }
+  const key=getKey("fh"); if(!key){ openModal("fhModal"); return; }
+  isRunning=true; setBtns(true); setDot("loading"); showProg();
+  setProg(3,"Connecting to Finnhub..."); document.getElementById("last-updated").textContent="Fetching...";
 
-  isRunning=true; setBtns(true);
-  setDot("loading"); showProgress();
-  setProgress(5,"Fetching US stock symbols from Finnhub...");
-  document.getElementById("last-updated").textContent="Fetching...";
-
-  const maxPrice=+document.getElementById("f-maxPrice").value;
-  const minVol=+document.getElementById("f-minVol").value;
-  const minIV=+document.getElementById("f-minIV").value;
+  const maxP=+document.getElementById("f-mp").value;
+  const minV=+document.getElementById("f-mv").value;
+  const minIV=+document.getElementById("f-iv").value;
 
   try{
-    // Step 1: Get all US stock symbols (1 call)
-    const symRes=await fetch(`https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${key}`);
-    if(symRes.status===401){ localStorage.removeItem("pf_fh"); updateKeyIndicator("finn"); throw new Error("Invalid Finnhub API key. Click 'Change key' to enter a new one."); }
-    if(!symRes.ok) throw new Error(`Finnhub symbols API returned ${symRes.status}`);
-    const symbols=await symRes.json();
-
-    // Filter to common stocks only (type=Common Stock), clean symbols
-    const tickers=symbols
-      .filter(s=>s.type==="Common Stock"&&/^[A-Z]{1,5}$/.test(s.symbol))
-      .map(s=>s.symbol);
-
-    setProgress(20,`Got ${tickers.length} US common stocks. Fetching quotes in batches...`);
-
-    // Step 2: Batch quote fetches — take a sample of 200 random tickers
-    // Finnhub has 60 calls/min on free tier — we fetch 200 tickers serially with small delay
-    const sample=tickers.sort(()=>Math.random()-0.5).slice(0,200);
     const stocks=[];
-
-    for(let i=0;i<sample.length;i++){
-      const ticker=sample[i];
-      try{
-        const r=await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${key}`,{signal:AbortSignal.timeout(4000)});
-        if(!r.ok) continue;
+    const batchSize=10; // safe at 60 calls/min with 1s delay
+    for(let i=0;i<UNIVERSE.length;i+=batchSize){
+      const batch=UNIVERSE.slice(i,i+batchSize);
+      const results=await Promise.allSettled(batch.map(async ticker=>{
+        const r=await fetch(`https://finnhub.io/api/v1/quote?symbol=${ticker}&token=${key}`,{signal:AbortSignal.timeout(5000)});
+        if(r.status===401) throw new Error("401");
+        if(!r.ok) return null;
         const q=await r.json();
-        const price=q.c; // current price
-        const prev=q.pc; // prev close
-        const high=q.h;
-        const low=q.l;
-        const vol=q.v||0;
-        if(!price||price<0.5||price>maxPrice) continue;
-        if(vol<minVol) continue;
+        const price=q.c,prev=q.pc,high=q.h,low=q.l,vol=q.v||0;
+        if(!price||price<0.5||price>maxP) return null;
+        if(vol<minV) return null;
         const chg=prev>0?+((price-prev)/prev*100).toFixed(2):0;
-        if(chg<-20) continue; // sell signal filter
-        const iv=estIV(high,low,price,prev);
-        if(iv<minIV) continue;
-        stocks.push({ticker,price,change:chg,volume:vol,iv});
-        if(stocks.length>=50) break; // stop once we have 50 good ones — saves API calls
-      } catch(e){ /* skip failed */ }
+        if(chg<-20||chg>50) return null;
+        const iv=estIV(high||price*1.02,low||price*0.98,price,prev||price);
+        if(iv<minIV) return null;
+        return{ticker,price,change:chg,volume:vol,iv};
+      }));
 
-      const pct=20+Math.round((i/sample.length)*70);
-      setProgress(pct,`Scanning... ${i+1}/${sample.length}`,`${stocks.length} qualified`);
+      // Check for invalid key
+      if(results.some(r=>r.status==="rejected"&&r.reason?.message==="401")){
+        clearKey("fh"); throw new Error("Invalid Finnhub API key. Click 'Run Finnhub Screener' to enter a new one.");
+      }
 
-      // Rate limit: ~55 calls/min safe = ~1.1s apart
-      // But we stop early at 50 stocks so total calls = symbols(1) + up to 200 quotes
-      await sleep(1100);
+      results.forEach(r=>{ if(r.status==="fulfilled"&&r.value) stocks.push(r.value); });
+      const pct=5+Math.round(((i+batchSize)/UNIVERSE.length)*88);
+      setProg(pct,`Scanning ${Math.min(i+batchSize,UNIVERSE.length)}/${UNIVERSE.length} tickers`,`${stocks.length} qualified`);
+      if(i+batchSize<UNIVERSE.length) await sleep(1000); // 60 calls/min = 1s between batches of 10
     }
 
-    if(!stocks.length) throw new Error("No stocks matched the filters. Try lowering min volume or min IV.");
+    if(!stocks.length) throw new Error("No stocks matched the filters. Try lowering Min IV or Min Volume.");
 
-    setProgress(92,`${stocks.length} stocks found. Building expiry matrix...`);
-    const dates=buildExpiryCalendar();
-    buildExpiryTabs(dates);
-    allRows=buildRows(stocks,dates,"finn");
-
-    setProgress(100,`Done — ${stocks.length} stocks × ${dates.length} expiries`);
-    hideProgress(); showResults(); setDot("ok");
-    const now=new Date();
-    document.getElementById("last-updated").textContent=`Finnhub · ${now.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · Real-time · ${stocks.length} stocks`;
+    const dates=buildCal(); buildExpTabs(dates);
+    allRows=buildRows(stocks,dates,"fh");
+    setProg(100,`Done — ${stocks.length} stocks × ${dates.length} expiries`);
+    hideProg(); showRes(); setDot("ok");
+    document.getElementById("last-updated").textContent=`Finnhub · ${new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · Real-time · ${stocks.length} stocks`;
     render();
 
   } catch(err){
-    setDot("error"); hideProgress();
+    setDot("error"); hideProg();
     showMsg(`<span style="color:var(--red)">⚠ ${err.message}</span>`);
     document.getElementById("last-updated").textContent="Error";
   }
-
   isRunning=false; setBtns(false);
 }
 
-// ═══════════════════════════════════════════════════════
-//  POLYGON — 120-stock seed universe, auto-filtered live
-// ═══════════════════════════════════════════════════════
-async function runPoly(){
+// ══════════════════════════════════════════════════════
+//  POLYGON — /v2/aggs/{t}/prev (CORS allowed ✓)
+//  Free: 5 calls/min → batch 4 at a time, 900ms delay
+// ══════════════════════════════════════════════════════
+async function runPK(){
   if(isRunning) return;
-  const key=getKey("poly");
-  if(!key){ openModal("polyModal"); return; }
+  const key=getKey("pk"); if(!key){ openModal("pkModal"); return; }
+  isRunning=true; setBtns(true); setDot("loading"); showProg();
+  setProg(3,"Connecting to Polygon..."); document.getElementById("last-updated").textContent="Fetching...";
 
-  isRunning=true; setBtns(true);
-  setDot("loading"); showProgress();
-  setProgress(3,"Screening 120-stock universe via Polygon...");
-  document.getElementById("last-updated").textContent="Fetching...";
-
-  const maxPrice=+document.getElementById("p-maxPrice").value;
-  const minVol=+document.getElementById("p-minVol").value;
-  const minIV=+document.getElementById("p-minIV").value;
-  const universe=[...new Set(POLY_UNIVERSE)];
+  const maxP=+document.getElementById("p-mp").value;
+  const minV=+document.getElementById("p-mv").value;
+  const minIV=+document.getElementById("p-iv").value;
 
   try{
     const stocks=[];
-    const batchSize=8;
-    for(let i=0;i<universe.length;i+=batchSize){
-      const batch=universe.slice(i,i+batchSize);
+    const batchSize=4; // 5 calls/min → 4 parallel + 900ms delay = safe
+    for(let i=0;i<UNIVERSE.length;i+=batchSize){
+      const batch=UNIVERSE.slice(i,i+batchSize);
       const results=await Promise.allSettled(batch.map(async ticker=>{
         const r=await fetch(`https://api.polygon.io/v2/aggs/ticker/${ticker}/prev?adjusted=true&apiKey=${key}`,{signal:AbortSignal.timeout(6000)});
-        if(r.status===401){ throw new Error("401"); }
+        if(r.status===401||r.status===403) throw new Error("401");
         if(!r.ok) return null;
         const d=await r.json();
         if(!d.results||!d.results.length) return null;
-        const bar=d.results[0];
-        const price=bar.c;
-        if(!price||price<0.5||price>maxPrice) return null;
-        if((bar.v||0)<minVol) return null;
-        const chg=+((price-(bar.o||price))/(bar.o||price)*100).toFixed(2);
-        if(chg<-20) return null;
-        const iv=estIV(bar.h,bar.l,price,bar.o||price);
+        const b=d.results[0],price=b.c;
+        if(!price||price<0.5||price>maxP) return null;
+        if((b.v||0)<minV) return null;
+        const chg=+((price-(b.o||price))/(b.o||price)*100).toFixed(2);
+        if(chg<-20||chg>50) return null;
+        const iv=estIV(b.h,b.l,price,b.o||price);
         if(iv<minIV) return null;
-        return{ticker,price,change:chg,volume:bar.v||0,iv};
+        return{ticker,price,change:chg,volume:b.v||0,iv};
       }));
 
-      // Check for 401
-      const unauthorized=results.find(r=>r.status==="rejected"&&r.reason?.message==="401");
-      if(unauthorized){ localStorage.removeItem("pf_pk"); updateKeyIndicator("poly"); throw new Error("Invalid Polygon API key. Click 'Change key' to enter a new one."); }
+      if(results.some(r=>r.status==="rejected"&&r.reason?.message==="401")){
+        clearKey("pk"); throw new Error("Invalid or expired Polygon API key. Click 'Run Polygon Screener' to enter a new one.");
+      }
 
       results.forEach(r=>{ if(r.status==="fulfilled"&&r.value) stocks.push(r.value); });
-      setProgress(5+Math.round(((i+batchSize)/universe.length)*82),`Screening... ${Math.min(i+batchSize,universe.length)}/${universe.length}`,`${stocks.length} qualified`);
-      if(i+batchSize<universe.length) await sleep(180);
+      const pct=5+Math.round(((i+batchSize)/UNIVERSE.length)*88);
+      setProg(pct,`Scanning ${Math.min(i+batchSize,UNIVERSE.length)}/${UNIVERSE.length} tickers`,`${stocks.length} qualified`);
+      if(i+batchSize<UNIVERSE.length) await sleep(900);
     }
 
     if(!stocks.length) throw new Error("No stocks passed the filters. Try lowering Min IV or Min Volume.");
 
-    const dates=buildExpiryCalendar();
-    buildExpiryTabs(dates);
-    allRows=buildRows(stocks,dates,"poly");
-    setProgress(100,`Done — ${stocks.length} stocks × ${dates.length} expiries`);
-    hideProgress(); showResults(); setDot("ok");
-    const now=new Date();
-    document.getElementById("last-updated").textContent=`Polygon · ${now.toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · 15-min delayed · ${stocks.length}/${universe.length} qualified`;
+    const dates=buildCal(); buildExpTabs(dates);
+    allRows=buildRows(stocks,dates,"pk");
+    setProg(100,`Done — ${stocks.length} stocks × ${dates.length} expiries`);
+    hideProg(); showRes(); setDot("ok");
+    document.getElementById("last-updated").textContent=`Polygon · ${new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit"})} · 15-min delayed · ${stocks.length} stocks`;
     render();
 
   } catch(err){
-    setDot("error"); hideProgress();
-    showMsg(`<span style="color:var(--red)">⚠ ${err.message}</span><br><span style="font-size:12px">Check your key is active at polygon.io/dashboard</span>`);
+    setDot("error"); hideProg();
+    showMsg(`<span style="color:var(--red)">⚠ ${err.message}</span><br><span style="font-size:12px">Check your key at polygon.io/dashboard</span>`);
     document.getElementById("last-updated").textContent="Error";
   }
-
   isRunning=false; setBtns(false);
 }
 
 // ── Render ────────────────────────────────────────────
-function sortBy(key){ if(sortKey===key) sortDir*=-1; else{sortKey=key;sortDir=-1;} document.getElementById("sortSel").value=key; render(); }
-function ivColor(iv){ return iv>=120?"#f08484":iv>=80?"#f0c484":"#84b8f0"; }
-function fmtVol(v){ return v>=1e6?(v/1e6).toFixed(1)+"M":v>=1e3?Math.round(v/1e3)+"K":v; }
+function sortBy(k){ if(sortKey===k) sortDir*=-1; else{sortKey=k;sortDir=-1;} document.getElementById("sortSel").value=k; render(); }
+function ivCol(iv){ return iv>=120?"#f08484":iv>=80?"#f0c484":"#84b8f0"; }
 
 function render(){
-  const maxP=+document.getElementById("priceSel").value;
-  const minY=+document.getElementById("yieldSel").value;
-  let rows=allRows.filter(d=>d.price<=maxP&&d.yield>=minY&&(selectedExp==="all"||d.expDate===selectedExp));
-  if(selectedExp==="all"){ const best=new Map(); rows.forEach(r=>{ if(!best.has(r.ticker)||r.yield>best.get(r.ticker).yield) best.set(r.ticker,r); }); rows=Array.from(best.values()); }
+  const maxP=+document.getElementById("priceF").value,minY=+document.getElementById("yieldF").value;
+  let rows=allRows.filter(d=>d.price<=maxP&&d.yield>=minY&&(selExp==="all"||d.expDate===selExp));
+  if(selExp==="all"){ const bst=new Map(); rows.forEach(r=>{ if(!bst.has(r.ticker)||r.yield>bst.get(r.ticker).yield) bst.set(r.ticker,r); }); rows=Array.from(bst.values()); }
   rows.sort((a,b)=>{ const av=a[sortKey],bv=b[sortKey]; if(typeof av==="string") return sortDir>0?av.localeCompare(bv):bv.localeCompare(av); return(av-bv)*sortDir; });
   rows=rows.slice(0,30);
   ["ticker","price","change","iv","strike","dte","premium","capital","yield","breakeven"].forEach(k=>{ const el=document.getElementById("th-"+k); if(el) el.classList.toggle("sorted",sortKey===k); });
   const tbody=document.getElementById("tbody");
-  if(!rows.length){ tbody.innerHTML=`<tr class="msg-row"><td colspan="11">No results. Try lowering min yield or selecting a different expiry.</td></tr>`; updateMetrics([]); return; }
+  if(!rows.length){ tbody.innerHTML=`<tr class="msgrow"><td colspan="11">No results. Try lowering min yield or selecting a different expiry.</td></tr>`; updateM([]); return; }
   tbody.innerHTML=rows.map((d,i)=>{
-    const ivPct=Math.min(100,(d.iv/180)*100).toFixed(0);
-    const chCls=d.change>=0?"up":"dn";
-    const chStr=(d.change>=0?"+":"")+d.change+"%";
-    const yCls=d.yield>=10?"yg":d.yield>=7?"yo":"yl";
-    const expType=d.isMonthly?`<span class="exp-m">M</span>`:`<span class="exp-w">W</span>`;
-    const rank=i<5?`<span class="rank">#${i+1}</span>`:"";
-    const chip=d.source==="poly"?`<span class="src-chip chip-p">POLY</span>`:`<span class="src-chip chip-f">FH</span>`;
+    const ivp=Math.min(100,(d.iv/180)*100).toFixed(0);
+    const cc=d.change>=0?"cup":"cdn",cs=(d.change>=0?"+":"")+d.change+"%";
+    const yc=d.yield>=10?"yg":d.yield>=7?"yo":"yl";
+    const et=d.isMonthly?`<span class="em">M</span>`:`<span class="ew">W</span>`;
+    const rk=i<5?`<span class="rank">#${i+1}</span>`:"";
+    const chip=d.source==="pk"?`<span class="schip cp">POLY</span>`:`<span class="schip cf">FH</span>`;
     return`<tr>
-      <td><span class="ticker-sym">${d.ticker}</span>${rank}</td>
+      <td><span class="tsym">${d.ticker}</span>${rk}</td>
       <td class="mono">$${d.price.toFixed(2)}</td>
-      <td class="mono sm ${chCls}">${chStr}</td>
-      <td><div class="iv-wrap"><div class="iv-track"><div class="iv-fill" style="width:${ivPct}%;background:${ivColor(d.iv)}"></div></div><span class="mono muted sm">${d.iv}%</span></div></td>
+      <td class="mono sm ${cc}">${cs}</td>
+      <td><div class="ivwrap"><div class="ivtrack"><div class="ivfill" style="width:${ivp}%;background:${ivCol(d.iv)}"></div></div><span class="mono muted sm">${d.iv}%</span></div></td>
       <td class="mono muted sm">$${d.strike.toFixed(2)}</td>
-      <td><div class="exp-cell"><div class="exp-date">${d.expDisplay}${expType}</div><div class="exp-dte">${d.dte}d</div></div></td>
+      <td><div class="ecell"><div class="edate">${d.expDisplay}${et}</div><div class="edte">${d.dte}d</div></div></td>
       <td class="prem">$${d.premium}</td>
       <td class="mono muted sm">$${d.capital.toLocaleString()}</td>
-      <td><div class="yield-wrap"><span class="yield-main ${yCls}">${d.yield.toFixed(1)}%</span><span class="yield-ann">${d.annYield}% ann.</span></div></td>
+      <td><div class="ywrap"><span class="ymain ${yc}">${d.yield.toFixed(1)}%</span><span class="yann">${d.annYield}% ann.</span></div></td>
       <td class="mono muted sm">$${d.breakeven.toFixed(2)}</td>
       <td>${chip}</td>
     </tr>`;
   }).join("");
-  updateMetrics(rows);
+  updateM(rows);
 }
 
-function updateMetrics(rows){
+function updateM(rows){
   const n=rows.length;
   document.getElementById("m1").textContent=n||"—";
   document.getElementById("m2").textContent=n?(rows.reduce((a,b)=>a+b.yield,0)/n).toFixed(1)+"%":"—";
   document.getElementById("m3").textContent=n?Math.round(rows.reduce((a,b)=>a+b.iv,0)/n)+"%":"—";
-  const hits=rows.filter(d=>d.yield>=10).length;
-  document.getElementById("m4").textContent=n?hits:"—";
-  document.getElementById("m4sub").textContent=n?`of ${n} shown`:"";
+  const h=rows.filter(d=>d.yield>=10).length;
+  document.getElementById("m4").textContent=n?h:"—";
+  document.getElementById("m4s").textContent=n?`of ${n} shown`:"";
 }
 
-// ── Init ──────────────────────────────────────────────
-updateKeyIndicator("finn");
-updateKeyIndicator("poly");
+// Init
+updateKS("fh"); updateKS("pk");
 </script>
 </body>
 </html>
